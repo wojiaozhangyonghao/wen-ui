@@ -1,7 +1,7 @@
 {
-  "name": "equipmentprice",
+  "name": "web-ant-ui",
   "version": "0.1.7",
-  "description": "ant-design中常用组件封装",
+  "description": "vue-ant-design中常用组件封装",
   "private": false,
   "author": "kuangshp &lt;kuangshp@126.com&gt;",
   "license": "MIT",
