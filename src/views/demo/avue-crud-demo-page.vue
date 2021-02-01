@@ -25,7 +25,7 @@
       <a-icon type="edit" @click="rowEdit(scope)" class="a-icon-edit-outline" />
     </template>
     <template slot="examineOrgForm" slot-scope="scope">
-      <a-button  type="primary" @click="rowEdit(scope)">form</a-button>
+      <a-button  type="primary" @click="rowEdit3(scope)">form</a-button>
     </template>
       <!-- <template slot="action" slot-scope="{ tableRow }">
 					<a @click="handleTableInfo(tableRow)" href="javascript:void(0);"> Info </a> -->
@@ -151,6 +151,10 @@ export default {
   },
   mounted() {},
   methods: {
+    rowEdit( row){
+      this.$store.commit('SET_ROUTER_PARAMS', {title: 'lll', params: row, boxType: 'ooo',})
+        this.$router.push('/form')
+    },
      handleSubmit(e) {
       console.log(this.formInline);
     },
@@ -204,32 +208,32 @@ export default {
       });
     },
     handleList() {
-      //  this.data =[
-      //     {
-      //       name1:'大幅度发的说法',
-      //       name2:'dsfdsfdsfdsf',
-      //       name3:'dsfdsfdsfdsf',
-      //       name4:'dsfdsfdsfdsf',
-      //       name5:'dsfdsfdsfdsf反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第',
-      //       name6:'反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三方'
-      //     },
-      //     {
-      //       name1:'大幅度发的说法111',
-      //       name2:'dsfdsfdsfdsf211',
-      //       name3:'反倒是第三方第三方111'
-      //     }
-      //   ]
-      this.tableLoading = true;
-      fetchList(this.page).then((response) => {
-        this.data = response.data.data.list;
-        console.log(this.data,'this.data')
-        this.page = {
-          total: response.data.data.total,
-          currentPage: response.data.data.pageNum,
-          pageSize: response.data.data.pageSize,
-        };
-        this.tableLoading = false;
-      });
+       this.data =[
+          {
+            name1:'大幅度发的说法',
+            name2:'dsfdsfdsfdsf',
+            name3:'dsfdsfdsfdsf',
+            name4:'dsfdsfdsfdsf',
+            name5:'dsfdsfdsfdsf反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第',
+            name6:'反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三方'
+          },
+          {
+            name1:'大幅度发的说法111',
+            name2:'dsfdsfdsfdsf211',
+            name3:'反倒是第三方第三方111'
+          }
+        ]
+      // this.tableLoading = true;
+      // fetchList(this.page).then((response) => {
+      //   this.data = response.data.data.list;
+      //   console.log(this.data,'this.data')
+      //   this.page = {
+      //     total: response.data.data.total,
+      //     currentPage: response.data.data.pageNum,
+      //     pageSize: response.data.data.pageSize,
+      //   };
+      //   this.tableLoading = false;
+      // });
     },
     handleSearchChange(form) {
       console.log(form,'form')

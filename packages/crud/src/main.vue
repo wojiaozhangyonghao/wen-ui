@@ -3,10 +3,36 @@
     <div class="crud-header">
       <!-- <el-collapse-transition> -->
         <a-collapse v-model="activeNames" accordion :bordered="false">
-          <a-collapse-panel key="searchForm"  :show-arrow="false" v-if="searchFlag && searchShow ">
+          <a-collapse-panel key="searchForm"  v-if="searchFlag && searchShow ">
             <template slot="header">
-            <a-icon  type="search" style="color:#67C23A;"></a-icon> 查询条件
+            <a-icon  type="setting"></a-icon>{{vaildData(option.functionName,'工具栏')}}   
             </template>
+            <a-row v-if="option.showBar">
+                <a-col
+                  :span="24"
+                  style="text-align: right; padding-right: 20px; margin-bottom: 15px"
+                >
+                  <a-button
+                    id="global_back"
+                    icon="left"
+                    @click="goBack"
+                    shape="circle"
+                  ></a-button>
+                  <a-button
+                    id="global_forward"
+                    icon="right"
+                    @click="goForward"
+                    shape="circle"
+                    style="margin-left:10px;"
+                  ></a-button>
+                  <a-button
+                    type="primary"
+                    icon="question"
+                    style="background: #3dbb2b; border-color: #3dbb2b;margin-left:10px;"
+                    @click.prevent.stop="guide"
+                  >使用帮助</a-button>
+                </a-col>
+              </a-row>
                 <a-form-model :model="searchForm"
                         layout="inline"
                         ref="searchForm">
@@ -94,7 +120,7 @@
               <!-- :row-selection="rowSelection" -->
     <a-table :data-source="data"
               :size="option.size"
-              :rowKey="(record,index)=>{return index}"
+              :rowKey="(record)=>{return record.id}"
               :row-selection="option.selection?{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }:null"
               :pagination="option.pagination"
               :show-header="option.showHeader"
@@ -105,7 +131,7 @@
               :scroll="{ x: option.width, y: option.height }"
               :bordered="option.border"
               :loading="tableLoading"
-              :components="components"
+              :components="components2"
               @change="change">
               	<!-- 自定义表格渲染项 -->
 			<!-- <template v-for="colCustom in columnsCustom" :slot="colCustom.customRender" slot-scope="text, record, index">
@@ -381,28 +407,19 @@
 <script>
  import Vue from "vue";
 import VueDraggableResizable from "vue-draggable-resizable";
+// import 'vue-draggable-resizable/dist/VueDraggableResizable.css'
 Vue.component("vue-draggable-resizable", VueDraggableResizable);
 import crud from "../../mixins/crud.js";
 import { validatenull } from "../../utils/validate.js";
 import moment from "moment";
 moment.suppressDeprecationWarnings = true;
-// const rowSelection = {
-//   onChange: (selectedRowKeys, selectedRows) => {
-//     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-//   },
-//   onSelect: (record, selected, selectedRows) => {
-//     console.log(record, selected, selectedRows);
-//   },
-//   onSelectAll: (selected, selectedRows, changeRows) => {
-//     console.log(selected, selectedRows, changeRows);
-//   },
-// };
 export default {
   name: "AvueCrud",
   mixins: [crud()],
-  // components: {},
+  components: {},
   data () {
-    this.components = {
+    return {
+      components2 : {
                 header: {
                     cell: (h, props, children) => {
                         const {key, ...restProps} = props;
@@ -437,8 +454,7 @@ export default {
                         ]);
                     }
                 }
-            };
-    return {
+            },
       selectedRowKeys: [],
       defaultForm: {
         tableForm: {},
@@ -534,6 +550,12 @@ export default {
     }
   },
   methods: {
+     goBack() {
+      this.$router.back();
+    },
+    goForward() {
+      this.$router.forward();
+    },
     onSelectChange(selectedRowKeys) {
       // console.log('selectedRowKeys changed: ', selectedRowKeys);
       this.selectedRowKeys = selectedRowKeys;
@@ -749,6 +771,9 @@ export default {
     },
     //保存
     rowSave () {
+       console.log(this.$refs["tableForm"],'this.$refs["tableForm"]')
+            console.log(this.$refs,'this.$refs')
+            console.log(this.$refs.tableForm,'this.$refs["tableForm"]')
       this.$refs["tableForm"].validate().then(res => {
         this.$emit("row-save", Object.assign({}, this.tableForm), this.hide);
       });
@@ -780,17 +805,23 @@ export default {
     },
     //隐藏表单
     hide (cancel) {
-      const callack = () => {
-        if (cancel !== false) {
-          this.boxVisible = false;
+      console.log(cancel,'cancel')
+      // const callack = () => {
+        // if (cancel !== false) {
           this.$nextTick(() => {
-            this.$refs["tableForm"].resetForm();
-            this.$emit("input", this.tableForm);
+            // setTimeout(()=>{
+              console.log(this.$refs["tableForm"],'this.$refs["tableForm"]')
+              console.log(this.$refs,'this.$refs')
+              console.log(this.$refs.tableForm,'this.$refs["tableForm"]')
+              this.$refs["tableForm"].resetForm();
+              this.$emit("input", this.tableForm);
+            // },0)
+              this.boxVisible = false;
           });
-        }
-      };
-      if (typeof this.beforeClose === "function") this.beforeClose(callack);
-      else callack();
+        // }
+      // };
+      // if (typeof this.beforeClose === "function") this.beforeClose(callack);
+      // else callack();
     },
     cancel(){
       this.showClomnuBox = false

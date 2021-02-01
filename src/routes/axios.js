@@ -22,7 +22,7 @@ axios.interceptors.request.use(config => {
 	// if (store.getters.access_token) {
 	// 	config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
 	// }
-	config.headers['token'] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uSWQiOiJlZjU5Y2YxYS02NzM2LTQyZmUtYjFkOS03MzM1YjRhNDRjOTIiLCJleHAiOjE2MDk0OTAxNDZ9.tElYNga3xA9ftKw5Z53ABKKkkm-Rd9BOVdiHxDkB7QU'
+	config.headers['token'] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uSWQiOiJlZDIwMTFhMS03M2MxLTRmYjgtYTljNy00YzBhNDFjOTFkMjciLCJleHAiOjE2MTE5MTEyNDl9.9LisCNMWM2HFQ9wj2iyIjB0Rhu7pBrA5J1XQshTtx-Y'
   if(!/^\/file\//.exec(config.url)){
 	if(process.env.NODE_ENV !== 'production'){
 		config.url = "/api" + config.url

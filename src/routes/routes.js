@@ -6,6 +6,7 @@ import index from '@/views/layout/index.vue'
 import excel from '@/components/excel-demo/exportExcel.vue'
 import Upload from '@/views/price-query/upload.vue'
 import demo from '@/views/demo/avue-crud-demo-page.vue'
+import form from '@/views/demo/avue-crud-demo-form.vue'
 // let routes = [
 //     {
 //         path: '/404',
@@ -70,6 +71,11 @@ let routes = [
                 path: '/demo',
                 name: 'demo',
                 component: demo,
+            },
+            {
+                path: '/form',
+                name: 'form',
+                component: form,
             },
             {
                 path: '/upload',

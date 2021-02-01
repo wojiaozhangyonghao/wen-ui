@@ -26,17 +26,20 @@ const DIC = {
 }
 
 export const tableOption = {
+  showBar:false,
+  functionName:'装备查询',
+  menu:true,// 操作列是否显示
   selection: true,//table 左侧的可选框是否显示
   // dicUrl: dicUrl,//dicUrl : 字典服务器地址
   menuWidth: 120,// table 右侧操作按钮列的宽度，默认为120,
   workflow: false,//必填，标记工作流状态
-  width:500, //表格宽度
+  width:500, //表格宽度     不写宽度表格底部scroll 消失
   // height:"auto", // 表格高度
   border: true, // 表格是否有边框 
   // searchSize: "small", // 搜索按钮 与搜索条件 大小  Large Default  small
   addBtn: true,  // 新增按钮是否显示
   editBtn: true, // 编辑按钮是否显示
-  viewBtn: true, // 查看按钮是否显示
+  viewBtn: false, // 查看按钮是否显示
   delBtn:true, // 删除按钮 是否显示
   exportFileBtn:false,// 导出按钮是否显示
   labelCol:{ span: 12 }, // 表单label width
@@ -206,7 +209,7 @@ export const tableOption = {
       key: 'company',
       dataIndex: "company",
       width: 200,
-      type:"ueditor",
+      // type:"ueditor",
       // sortable: true,
       ellipsis: true, // 超过宽度将自动省略
     },
@@ -351,11 +354,18 @@ export const tableOption = {
   // ]const updateByPlanid = (data) => axios.post(`${window.apiObj.api}/updateByPlanid`, data);
 };
 
-export function fetchList(query) {
+// export function fetchList(query) {
+//   return request({
+//     url: 'message-total/listByCondition',
+//     method: 'get',
+//     params: query
+//   })
+// }
+export function fetchList(data) {
   return request({
-    url: 'message-total/listByCondition',
-    method: 'get',
-    params: query
+    url: '/price/situations/listByCondition',
+    method: 'post',
+    data: data
   })
 }
 // export function fetchList(query) {

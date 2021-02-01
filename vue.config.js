@@ -18,7 +18,7 @@ module.exports = {
         proxy: {
             '/api': {
                 /* 目标代理服务器地址 */
-                target: 'http://192.168.11.41:6001/price',
+                target: 'http://192.168.12.37:22401/price',
                 /* 允许跨域 */
                 changeOrigin: true,
                 pathRewrite: {
