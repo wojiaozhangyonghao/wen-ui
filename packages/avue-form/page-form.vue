@@ -39,16 +39,18 @@
         <avue-form v-model="tableForm"
                    ref="tableForm"
                    :option="formOption"
-                   @form-change="formChange">
-          <template slot-scope="scope" v-for="(item,index) in option.column" :slot="item.prop">
+                   @form-change="formChange" >
+          <template slot-scope="scope"
+                    v-for="(item,index) in option.column"
+                    :slot="item.dataIndex">
             <slot :value="scope.value"
                   :column="scope.column"
                   :dic="scope.dic"
-                  :name="item.prop+'Form'"
+                  :name="item.dataIndex+'Form'"
                   v-if="item.formsolt"></slot>
           </template>
           <template>
-            <slot name="contentForm"></slot>
+                <slot name="contentForm"></slot>
           </template>
         </avue-form>
       </a-row>
@@ -57,7 +59,7 @@
           <!--<el-button type="primary" id="global_temp" icon="jxIcon-floppy-disk" @click="rowTemSave" v-if="boxType === 'add'">暂存</el-button>-->
           <a-button type="primary" id="global_add" icon="save" @click="rowSave" v-if="boxType === 'add'">保存</a-button>
           <a-button type="primary" id="global_save" icon="save" @click="rowUpdate" v-if="boxType === 'edit'">保存</a-button>
-          <a-button type="warning" id="global_forward" icon="close" @click="cancel">取消</a-button>
+          <a-button type="warning" id="global_forward" icon="close" @click="cancel" style="margin-left:20px;">取消</a-button>
           <slot name="buttons"></slot>
         </a-col>
       </a-row>
@@ -136,21 +138,21 @@
       switch (this.boxType) {
         case 'add':
           this.rowAdd();
-          this.clone(this.tableForm);
+          // this.clone(this.tableForm);
           this.tourSteps = [].concat(this.tourSteps,this.addSteps)
           break;
         case 'edit':
           this.rowEdit(this.rowModel);
-          this.clone(this.tableForm);
+          // this.clone(this.tableForm);
           this.tourSteps = [].concat(this.tourSteps,this.editSteps)
           break;
         case 'view':
           this.tableForm = Object.assign({}, this.rowModel);
           break;
       }
-      if(steps[this.componentId] != null){
-        this.tourSteps = [].concat(this.tourSteps, steps[this.componentId].tourSteps)
-      }
+      // if(steps[this.componentId] != null){
+      //   this.tourSteps = [].concat(this.tourSteps, steps[this.componentId].tourSteps)
+      // }
     },
     computed: {
       formOption: function () {
@@ -268,7 +270,7 @@
         }
       },
       indexMethod(index) {
-        return (index + 1) + (((this.page.currentPage || 1) - 1) * (this.page.pageSize || 10))
+        return (index + 1) + (((this.page.page || 1) - 1) * (this.page.size || 10))
       },
       showClomnu() {
       },

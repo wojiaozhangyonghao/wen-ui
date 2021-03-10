@@ -4,7 +4,7 @@
                   :size="size"
                   :format="format"
                   use12-hours
-                  :value-format="valueFormat"
+                  :valueFormat="valueFormat"
                   :placeholder="placeholder?placeholder:`请输入${label}`"
                   @change="handleChange"
                   :disabled="disabled"> </a-time-picker>

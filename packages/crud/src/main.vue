@@ -52,7 +52,7 @@
                               :allowClear="column.allowClear"
                               :showSearch='column.showSearch'
                               :placeholder="column.title"
-                               :value-format="column.valueFormat"
+                               :valueFormat="column.valueFormat"
                                :dic="setDic(column.dicData,DIC[column.dicData])"></component>
                   </a-form-model-item>
                   <a-form-model-item>
@@ -120,7 +120,7 @@
               <!-- :row-selection="rowSelection" -->
     <a-table :data-source="data"
               :size="option.size"
-              :rowKey="(record)=>{return record.id}"
+              :rowKey="(record,index)=>{return record.id}"
               :row-selection="option.selection?{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }:null"
               :pagination="option.pagination"
               :show-header="option.showHeader"
@@ -203,18 +203,7 @@
                          align="center">
         </el-table-column>
       </template> -->
-      <!-- 循环列 -->
-       <a-table-column v-if="showClomnuIndex.indexOf(index)!=-1"
-                       v-for="(column,index) in option.column"
-                       :data-index="column.dataIndex"
-                       :key="column.dataIndex"
-                       :ellipsis="column.ellipsis"
-                       :sorter="column.sortable"
-                       :align="vaildData(column.align,option.align)"
-                       :width="column.width"
-                       :title="column.title"
-                       :fixed="column.fixed">
-          <!-- <template  v-if="column.type" slot-scope="text, record" :slot="column.dataIndex">
+                <!-- <template  v-if="column.type" slot-scope="text, record" :slot="column.dataIndex">
             <span  v-html="detail(record,column)"></span>
           </template> -->
           <!-- <template v-else slot-scope="text, record">
@@ -238,6 +227,18 @@
             <span v-else>{{scope.row[column.prop]}}</span>
           </template> 
          </template>  -->
+      <!-- 循环列 -->
+      <a-table-column v-if="showClomnuIndex.indexOf(index)!=-1 && !column.children"
+                       v-for="(column,index) in option.column"
+                       :data-index="column.dataIndex"
+                       :key="column.dataIndex"
+                       :ellipsis="column.ellipsis"
+                       :sorter="column.sortable"
+                       :align="vaildData(column.align,option.align)"
+                       :width="column.width"
+                       :title="column.title"
+                       :fixed="column.fixed">
+
         <template slot-scope="text, record">
           	<slot 
                  v-if="column.scopedSlots"
@@ -246,11 +247,6 @@
                 :dic="setDic(column.dicData,DIC[column.dicData])"
                 :label="findByvalue(setDic(column.dicData,DIC[column.dicData]),record[column.dataIndex],(column.props || option.props))"
                 :index="index"></slot>
-          <!-- <slot :row="record.row"
-                :dic="setDic(column.dicData,DIC[column.dicData])"
-                :label="findByvalue(setDic(column.dicData,DIC[column.dicData]),record.row[column.prop],(column.props || option.props))"
-                :name="column.prop"
-                v-if="column.solt"></slot> -->
           <template v-else>
             <template v-if="column.type">
              <a-tooltip  v-if="column.ellipsis" :title="detail(record,column)" placement="bottomLeft"><span>{{detail(record,column)}}</span></a-tooltip>
@@ -262,13 +258,50 @@
                   </a-tooltip>
                   <span v-else>{{record[column.dataIndex]}}</span>
             </template>
-            <!-- <span >{{record[column.dataIndex]}}</span> -->
           </template>
         </template>  
-            <!-- <a-tooltip  :title="record[column.prop]" >
-            <span >{{record[column.prop]}}</span>
-                  </a-tooltip> -->
       </a-table-column> 
+       <a-table-column-group 
+        v-for="(column1,index) in option.column"
+       v-if=" column1.groupName"
+       :key="index"
+       >
+         <span slot="title">{{column1.groupName}}</span>
+         <a-table-column v-if="showClomnuIndex.indexOf(index)!=-1"
+                       v-for="(column,index) in column1.children"
+                       :data-index="column.dataIndex"
+                       :key="column.dataIndex"
+                       :ellipsis="column.ellipsis"
+                       :sorter="column.sortable"
+                       :align="vaildData(column.align,option.align)"
+                       :width="column.width"
+                       :title="column.title"
+                       :fixed="column.fixed">
+
+        <template slot-scope="text, record">
+          	<slot 
+                 v-if="column.scopedSlots"
+                :name="column.scopedSlots?column.scopedSlots.customRender:''" 
+                :row="record"
+                :dic="setDic(column.dicData,DIC[column.dicData])"
+                :label="findByvalue(setDic(column.dicData,DIC[column.dicData]),record[column.dataIndex],(column.props || option.props))"
+                :index="index"></slot>
+          <template v-else>
+            <template v-if="column.type">
+             <a-tooltip  v-if="column.ellipsis" :title="detail(record,column)" placement="bottomLeft"><span>{{detail(record,column)}}</span></a-tooltip>
+            <span v-else>{{detail(record,column)}}</span>
+            </template>
+            <template v-else>
+            <a-tooltip v-if="column.ellipsis"  :title="record[column.dataIndex]" placement="bottomLeft">
+            <span >{{record[column.dataIndex]}}</span>
+                  </a-tooltip>
+                  <span v-else>{{record[column.dataIndex]}}</span>
+            </template>
+          </template>
+        </template>  
+      </a-table-column> 
+       </a-table-column-group>
+
       <a-table-column fixed="right"
                        v-if="vaildData(option.menu,true)"
                        key="action"
@@ -323,12 +356,12 @@
     <!-- 分页 -->
     <a-pagination v-if="vaildData(option.page,true)"
                    class="crud-pagination pull-right"
-                   :current.sync="page.currentPage"
+                   :current.sync="page.page"
                    :page-size-options="option.pageSizeOptions"
                     :total="page.total"
                     show-size-changer
                     show-quick-jumper
-                   :page-size="page.pageSize"
+                   :page-size="page.size"
                    :show-total="total => `共 ${page.total} 条`"
                    @showSizeChange="currentChange"
                    @change="sizeChange"
@@ -412,6 +445,8 @@ Vue.component("vue-draggable-resizable", VueDraggableResizable);
 import crud from "../../mixins/crud.js";
 import { validatenull } from "../../utils/validate.js";
 import moment from "moment";
+import Driver from "driver.js";
+// const steps = require("../../../src/assets/guide-step.json");
 moment.suppressDeprecationWarnings = true;
 export default {
   name: "AvueCrud",
@@ -471,13 +506,33 @@ export default {
       tableForm: {},
       tableFormRules: {},
       tableIndex: -1,
-      tableSelect: []
+      tableSelect: [],
+      animatedTourDriver: null,
+      tourSteps: [
+        {
+          element: "#global_back",
+          popover: {
+            title: "后退",
+            description: "点击可以后退到前一页"
+          }
+        },
+        {
+          element: "#global_forward",
+          popover: {
+            title: "前进",
+            description: "点击可以前进到下一页(在点击过后退的情况下才有效)"
+          }
+        }
+      ]
     };
   },
   created () {
-    console.log(this.page.pageSize,'page.pageSize')
+    console.log(this.steps,'this.steps')
     //初始化动态列
     this.showClomnuInit();
+    if (this.steps.tourSteps) {
+      this.tourSteps = this.tourSteps.concat(this.steps.tourSteps);
+    }
   },
   computed: {
 		columnsCustom () {
@@ -507,6 +562,17 @@ export default {
     }
   },
   mounted () { 
+     this.animatedTourDriver = new Driver({
+      animate: true,
+      opacity: 0.7,
+      padding: 5,
+      doneBtnText: "完成",
+      closeBtnText: "关闭",
+      stageBackground: "#ffffff",
+      nextBtnText: "下一步",
+      prevBtnText: "上一步",
+      showButtons: true
+    });
   },
   props: {
     value: {
@@ -515,6 +581,16 @@ export default {
         return {}
       }
     },
+    componentId: {
+      type: String,
+      required: true
+    },
+    steps:{ 
+      type: Object,
+      default: () => {
+        return {}
+      }
+      },
     beforeClose: Function,
     beforeOpen: Function,
     rowClassName: Function,
@@ -523,8 +599,8 @@ export default {
       default () {
         return {
           total: 0, //总页数
-          currentPage: 1, //当前页数
-          pageSize: 10, //每页显示多少条
+          page: 1, //当前页数
+          size: 10, //每页显示多少条
           pageSizes: ['10', '20', '30', '40', '50', '100'],
           background: true //背景颜色
         };
@@ -550,11 +626,15 @@ export default {
     }
   },
   methods: {
-     goBack() {
-      this.$router.back();
+    guide() {
+      this.animatedTourDriver.defineSteps(this.tourSteps);
+      this.animatedTourDriver.start();
     },
     goForward() {
       this.$router.forward();
+    },
+     goBack() {
+      this.$router.back();
     },
     onSelectChange(selectedRowKeys) {
       // console.log('selectedRowKeys changed: ', selectedRowKeys);
@@ -566,7 +646,7 @@ export default {
       this.selectedRowKeys = [];
     },
     indexMethod (index) {
-      return (index + 1) + (((this.page.currentPage || 1) - 1) * (this.page.pageSize || 10))
+      return (index + 1) + (((this.page.page || 1) - 1) * (this.page.size || 10))
     },
     showClomnu () { },
     refreshChange () {
@@ -650,6 +730,7 @@ export default {
     },
     //搜索回调
     searchChnage (column) {
+      console.log(this.searchForm,'this.searchForm')
       this.$emit("search-change", this.delUndefined(this.searchForm));
       //  column.forEach(ele => {
       //    if (ele.type == 'date'){
@@ -670,7 +751,7 @@ export default {
     detail (row, column) {
       // console.log(row, column,'row, column')
       let result = row[column.dataIndex];
-      // console.log(result,'result')
+      // console.log(result,'result111')
       if (column.type) {
         if (
           (column.type == "date" ||
@@ -683,7 +764,12 @@ export default {
           const format = column.format
             .replace("dd", "DD")
             .replace("yyyy", "YYYY");
-          result = moment(result).format(format);
+            if(result){
+              result = moment(result).format(format);
+            }else{
+              result = null
+            }
+          //  console.log(result,'result222')
         }
         if(
         column.type == "user" ||
@@ -729,13 +815,14 @@ export default {
       console.log(row, index,column,'row, index')
        column.forEach(ele => {
          if (ele.type == 'date'){
-           row[ele.dataIndex] = moment(row[ele.dataIndex], 'YYYY-MM-DD')
+           console.log(row[ele.dataIndex],'row[ele.dataIndex]')
+           row[ele.dataIndex] = row[ele.dataIndex]?moment(row[ele.dataIndex], 'YYYY-MM-DD'):null
          }else if (ele.type == 'month'){
-           row[ele.dataIndex] = moment(row[ele.dataIndex], 'YYYY-MM')
+           row[ele.dataIndex] = row[ele.dataIndex]?moment(row[ele.dataIndex], 'YYYY-MM'):null
          }else if (ele.type == 'year'){
-           row[ele.dataIndex] = moment(row[ele.dataIndex], 'YYYY')
+           row[ele.dataIndex] = row[ele.dataIndex]?moment(row[ele.dataIndex], 'YYYY'):null
          }
-        //  else if (ele.type == 'month'){
+        //  else if (ele.type == 'month'){dateRange
         //    row[ele.dataIndex] = moment(row[ele.dataIndex], 'YYYY-MM')
         //  }else if (ele.type == 'month'){
         //    row[ele.dataIndex] = moment(row[ele.dataIndex], 'YYYY-MM')

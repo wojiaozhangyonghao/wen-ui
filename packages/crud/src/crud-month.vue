@@ -3,6 +3,7 @@
                   v-model="text"
                   :size="size"
                   :format="format"
+                  :valueFormat="valueFormat"
                   :placeholder="placeholder?placeholder:`请输入${label}`"
                   @change="handleChange"
                   :disabled="disabled"> </a-month-picker>

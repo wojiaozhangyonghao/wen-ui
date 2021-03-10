@@ -67,6 +67,7 @@ export default function() {
         },
         watch: {
             value: function(n, o) {
+                console.log(n, o,'n, o1111')
                 this.text = this.value;
             }
         },
@@ -85,8 +86,8 @@ export default function() {
             }
         },
         created() {
-            // console.log(this.text,'text2')
-            this.text = this.value;
+            console.log(this.value,'text2222')
+            this.text = this.value  || null;
         }
     }
 }

@@ -5,6 +5,7 @@
                    show-time
                   :mode="mode"
                   :format="format"
+                  :valueFormat="valueFormat"
                   :placeholder="['开始年度', '结束年度']"
                   @openChange="openChangeOne"
                   @panelChange="handlePanelChange"

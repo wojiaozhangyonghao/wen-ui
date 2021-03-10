@@ -6,7 +6,9 @@
       :data="data"
       :table-loading="tableLoading"
       :page="page"
+      componentId="todayTask"
       ref="crud"
+      :steps="steps"
       @row-save="rowSave"
       @row-update="rowUpdate"
       @row-del="rowDel"
@@ -19,12 +21,13 @@
       @selection-change="selectionChange"
     >
       <template slot="menuLeft">
-        <a-button  type="primary" style="margin-left: 20px">导出</a-button>
+        <a-button  type="primary" style="margin-left: 20px" id="todayTask_searchBtn">导出</a-button>
+        <a-button  type="primary" style="margin-left: 20px" id="todayTask_addBtn">导出</a-button>
       </template>
        <template slot-scope="scope" slot="menu">
       <a-icon type="edit" @click="rowEdit(scope)" class="a-icon-edit-outline" />
     </template>
-    <template slot="examineOrgForm" slot-scope="scope">
+    <template slot="name9Form" slot-scope="scope">
       <a-button  type="primary" @click="rowEdit3(scope)">form</a-button>
     </template>
       <!-- <template slot="action" slot-scope="{ tableRow }">
@@ -98,7 +101,7 @@
   </a-card>
 </template>
 <script>
-import { tableOption, fetchList, delObj, putObj } from "./avue-crud-demo";
+import { tableOption, fetchList,steps , delObj, putObj } from "./avue-crud-demo";
 export default {
   name: "avue-crud-demo-page",
   components: {},
@@ -134,25 +137,28 @@ export default {
 //     tags: ['cool', 'teacher'],
 //   },
 // ],
+      steps:{},
       tableOption: {}, //表格设置属性
       data: [], //表格的数据
       formObj: {},
       tableLoading: false,
       page: {
         total: 0, //总页数
-        currentPage: 1, //当前页数
-        pageSize: 10, //每页显示多少条
+        page: 1, //当前页数
+        size: 10, //每页显示多少条
       },
     };
   },
   created() {
+    this.steps = steps
     this.tableOption = tableOption;
     this.handleList();
   },
   mounted() {},
   methods: {
     rowEdit( row){
-      this.$store.commit('SET_ROUTER_PARAMS', {title: 'lll', params: row, boxType: 'ooo',})
+      console.log(row,'row')
+      this.$store.commit('SET_ROUTER_PARAMS', {title: 'sss', params: row.row, boxType: 'edit',})
         this.$router.push('/form')
     },
      handleSubmit(e) {
@@ -210,14 +216,21 @@ export default {
     handleList() {
        this.data =[
           {
+            id:"1",
             name1:'大幅度发的说法',
             name2:'dsfdsfdsfdsf',
             name3:'dsfdsfdsfdsf',
             name4:'dsfdsfdsfdsf',
+            planName:'SMS',
+            offerPriceTime:'2020-02-02 12:12:12',
+            planYear:'2020-01-01 12:12:12',
+            examinePriceTime:'2020-09-09 12:12:12',
+            name9:'2020-09-09 12:12:12',
             name5:'dsfdsfdsfdsf反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第',
             name6:'反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三方'
           },
           {
+            id:"2",
             name1:'大幅度发的说法111',
             name2:'dsfdsfdsfdsf211',
             name3:'反倒是第三方第三方111'
@@ -237,17 +250,17 @@ export default {
     },
     handleSearchChange(form) {
       console.log(form,'form')
-      this.page.pageSize = 1;
+      this.page.size = 1;
       this.page = Object.assign(this.page, form);
       this.handleList();
     },
     sizeChange(val, form) {
       console.log(val, "pageSize");
-      this.page.currentPage = val; //第几页
+      this.page.page = val; //第几页
       this.handleList();
     },
     currentChange(val, form) {
-      this.page.pageSize = val; //每页多少条
+      this.page.size = val; //每页多少条
       this.handleList();
     },
     formChange(val) {

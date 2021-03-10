@@ -3,6 +3,7 @@
                   v-model="text"
                   :size="size"
                   :format="format"
+                  :valueFormat="valueFormat"
                   :placeholder="['开始日期', '结束日期']"
                   @change="handleChange"
                   :disabled="disabled"> </a-range-picker>

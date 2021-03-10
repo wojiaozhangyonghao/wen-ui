@@ -4,6 +4,7 @@
                   :size="size"
                   :mode="mode"
                   :format="format"
+                  :valueFormat="valueFormat"
                   :placeholder="placeholder?placeholder:`请输入${label}`"
                   :open='yearShowOne'
                   @openChange="openChangeOne"

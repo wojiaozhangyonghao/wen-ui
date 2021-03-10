@@ -1,8 +1,9 @@
 <template>
   <a-date-picker :type="type"
-                  v-model="text"
+                  :value="text"
                   :size="size"
                   :format="format"
+                  :valueFormat="valueFormat"
                   :placeholder="placeholder?placeholder:`请输入${label}`"
                   @change="handleChange"
                   :disabled="disabled"> </a-date-picker>
@@ -16,7 +17,7 @@ export default {
   data () {
     return {
       temp:false,
-      text: undefined
+      text: null
     };
   },
   props: {
@@ -47,11 +48,13 @@ export default {
   },
   watch: {
     text: function(n, o) {
-      this.text = this.value || undefined;
+      console.log(n, o,'n, o,,,')
+      this.text = this.value || null;
         }
   },
   created () { 
-    this.text = this.value || undefined;
+    console.log(this.valueFormat,'valueFormatvalueFormatvalueFormat')
+    this.text = this.value || null;
   },
   mounted () { },
   methods: {

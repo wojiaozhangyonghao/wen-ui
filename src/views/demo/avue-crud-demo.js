@@ -24,9 +24,29 @@ const DIC = {
     },                  
   ],   
 }
+export const steps  = {
 
+    "tourSteps": [
+      {
+        "element": "#todayTask_searchBtn",
+        "popover": {
+          "title": "查询",
+          "description": "点击按钮可以查询任务信息",
+          "position": "top-right"
+        }
+      },
+      {
+        "element": "#todayTask_addBtn",
+        "popover": {
+          "title": "新增任务",
+          "description": "点击按钮新增任务",
+          "position": "bottom-center"
+        }
+      }
+    ]
+}
 export const tableOption = {
-  showBar:false,
+  showBar:true,
   functionName:'装备查询',
   menu:true,// 操作列是否显示
   selection: true,//table 左侧的可选框是否显示
@@ -59,6 +79,7 @@ export const tableOption = {
       search: true,
       ellipsis: true,
       width: 200,
+      span:12,
       prefix:'¥', //输入框头部内容
       suffix:'RMB',//输入框尾部内容
       allowClear:false,
@@ -72,11 +93,38 @@ export const tableOption = {
       // }
     },
     {
+     groupName: '技术状态固化情况',
+        children: [
+          {
+            title: "是否定型（含配套）",
+            dataIndex: "technicalStatusIsFixed ",
+            key: "technicalStatusIsFixed ",
+            width: 180,
+            ellipsis: true,
+        },
+         {
+            title: "图纸是否鉴章（含配套）",
+            dataIndex: "technicalStatusIsSignature ",
+            key: "technicalStatusIsSignature ",
+            width: 100,
+          //   ellipsis: true,
+        },
+        {
+            title: "配套装备是否存在待竞争确定价格情况（军方组织或军方委托承制单位组织的）",
+            dataIndex: "technicalStatusWaitCompete ",
+            key: "technicalStatusWaitCompete ",
+            width: 180,
+          //   ellipsis: true,
+        },
+        ]
+    },
+    {
       title: '采购方式',
       dataIndex: 'planName',
       key: 'planName',
       // ellipsis: true,
       type:'select',
+      span:12,
       // search: true,
       dicData:DIC.channels,
       showSearch:true,
@@ -87,6 +135,7 @@ export const tableOption = {
       title: '程研单位',
       dataIndex: 'name3',
       key: 'name3',
+      span:12,
       type:'select',
       multiple:'multiple',
       dicData:DIC.channels,
@@ -142,18 +191,20 @@ export const tableOption = {
       type:'month',
       search: true,
       dataIndex: "offerPriceTime",
-      // valueFormat: "YYYY-MM-DD",
+      valueFormat: "YYYY-MM",
       format: "YYYY-MM",
       width: 200,
+      span:12,
       ellipsis: true, // 超过宽度将自动省略
     },
     {
       title: "批价年度",
       key: 'examinePriceTime',
       type:'date',
+      span:12,
       search: true,
       dataIndex: "examinePriceTime",
-      // valueFormat: "YYYY-MM-DD",
+      valueFormat: "YYYY-MM-DD",
       format: "YYYY-MM-DD",
       width: 200,
       ellipsis: true, // 超过宽度将自动省略
@@ -162,9 +213,10 @@ export const tableOption = {
       title: "年度",
       key: 'planYear',
       type:'year',
+      span:12,
       search: true,
       dataIndex: "planYear",
-      // valueFormat: "YYYY-MM-DD",
+      valueFormat: "YYYY",
       format: "YYYY",
       width: 200,
       ellipsis: true, // 超过宽度将自动省略
@@ -189,6 +241,7 @@ export const tableOption = {
       key: 'reportPriceTime',
       type:'dateRange',
       search: true,
+      span:12,
       dataIndex: "reportPriceTime",
       addVisdiplay:false,
       editVisdiplay:false,
@@ -200,8 +253,9 @@ export const tableOption = {
       title: "zb类型",
       key: 'examineOrg',
       dataIndex: "examineOrg",
-      width: 250,
-      formsolt:true,
+      width: 200,
+      span:12,
+      // formsolt:true,
       ellipsis: true, // 超过宽度将自动省略
     },
     {
@@ -209,6 +263,7 @@ export const tableOption = {
       key: 'company',
       dataIndex: "company",
       width: 200,
+      span:12,
       // type:"ueditor",
       // sortable: true,
       ellipsis: true, // 超过宽度将自动省略
@@ -218,6 +273,7 @@ export const tableOption = {
       key: 'name8',
       dataIndex: "name8",
       width: 200,
+      span:12,
       ellipsis: true, // 超过宽度将自动省略
     },
     {
@@ -225,6 +281,8 @@ export const tableOption = {
       key: 'name9',
       dataIndex: "name9",
       width: 200,
+      span:12,
+      formsolt:true,
       ellipsis: true, // 超过宽度将自动省略
     },
     {
@@ -233,6 +291,7 @@ export const tableOption = {
       dataIndex: "name10",
       minRows: 2,
       maxRows: 6,
+      span:12,
       type: "textarea",
       // search: false,// 是否在搜索条件显示
       width: 250,//列宽

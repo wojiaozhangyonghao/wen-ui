@@ -10,8 +10,8 @@
              :rules="formRules">
       <a-row :gutter="20" :span="24">
         <template v-for="(column,index) in option.column">
-          <div :class="{'avue-row':column.row}"  :key="index" v-if="vaildVisdiplay(column)">
-            <a-col :span="column.span||12">
+          <div :class="{'avue-row':column.row}"  :key="index" v-if="vaildVisdiplay(column) && !column.groupName">
+            <a-col :span="column.span || 12">
               <a-form-model-item :label="column.title"
                             :prop="column.dataIndex"
                             :label-col="column.labelCol || { span: 4 }">
@@ -68,7 +68,7 @@
                            :maxRows="column.maxRows"
                            :format="column.format"
                            :formatTooltip="column.formatTooltip"
-                           :value-format="column.valueFormat"
+                           :valueFormat="column.valueFormat"
                            :url="column.url"
                            :subPackage="column.subPackage"
                            :query="column.query"
@@ -77,6 +77,75 @@
                            :showAllLevels = "column.showAllLevels"
                            @change="formChange(index)"></component>
                 <!-- <p class="avue-tip">{{column.tip}}</p> -->
+              </a-form-model-item>
+            </a-col>
+          </div>
+          <div :class="{'avue-row':column.row}"    v-else v-for="(column1,index) in column.children" :key="column.dataIndex">
+            <a-col :span="column1.span || 12">
+              <a-form-model-item :label="column1.title"
+                            :prop="column1.dataIndex"
+                            :label-col="column1.labelCol || { span: 4 }">
+                <slot :value="form[column1.dataIndex]"
+                      :column="column1"
+                      :dic="setDic(column1.dicData,DIC[column1.dicData])"
+                      :name="column1.dataIndex"
+                      v-if="column1.formsolt"></slot>
+                <component :is="getComponent(column1)"
+                           v-else
+                           :props="column1.props || option.props"
+                           :id="column1.dataIndex"
+                           v-model="form[column1.dataIndex]"
+                           :precision="column1.precision"
+                           :multiple="column1.multiple"
+                           :placeholder="column1.placeholder"
+                           :step="column1.step"
+                           :range="column1.range"
+                           :showStops="column1.showStops"
+                           :showInput="column1.showInput"
+                           :controls-position="column1.controlsPosition"
+                           :expand-trigger="column1.expandTrigger"
+                           :size="column1.size"
+                           :colors="column1.colors"
+                           :action="column1.action"
+                           :limit="column1.limit"
+                           :tip="column1.tip"
+                           :listType="column1.listType"
+                           :drag="column1.drag"
+                           :showFileList="column1.showFileList"
+                           :iconClasses="column1.iconClasses"
+                           :voidIconClass="column1.voidIconClass"
+                           :showText="column1.showText"
+                           :texts="column1.texts"
+                           :showSearch="column1.showSearch"
+                           :separator="column1.separator"
+                           :border="column1.border"
+                           :editable="column1.editable"
+                           :minlength="column1.minlength"
+                           :maxlength="column1.maxlength"
+                           :prefix="column1.prefix"
+                           :suffix="column1.suffix"
+                           :pickerOptions="column1.pickerOptions"
+                           :defaultTime="column1.defaultTime"
+                           :min="column1.min"
+                           :max="column1.max"
+                           :changeoOnSelect="column1.changeOnSelect"
+                           :label="column1.title"
+                           :allowClear="column1.allowClear"
+                           :startPlaceholder="column1.startPlaceholder"
+                           :endPlaceholder="column1.endPlaceholder"
+                           :type="column1.type"
+                           :minRows="column1.minRows"
+                           :maxRows="column1.maxRows"
+                           :format="column1.format"
+                           :formatTooltip="column1.formatTooltip"
+                           :valueFormat="column1.valueFormat"
+                           :url="column1.url"
+                           :subPackage="column1.subPackage"
+                           :query="column1.query"
+                           :dic="setDic(column1.dicData,DIC[column1.dicData])"
+                           :disabled="vaildDisabled(column1)"
+                           :showAllLevels = "column.showAllLevels"
+                           @change="formChange(index)"></component>
               </a-form-model-item>
             </a-col>
           </div>
@@ -117,6 +186,8 @@ export default {
     };
   },
   created () {
+    console.log(this.value,'valuevaluevaluevalue')
+    console.log(this.form,'formform')
   },
   mounted () {
   },
