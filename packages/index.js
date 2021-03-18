@@ -23,7 +23,7 @@ import CrudNumberInput from './crud-input-number/index.js'
 // import DataIcons from './data-icons/index.js'
 // import DataBox from './data-box/index.js'
 import Form from './form/index.js'
-import PageForm from './avue-form/index.js'
+// import PageForm from './avue-form/index.js'
 // import FormTabs from './form-tabs/index.js'
 // import FormSteps from './form-steps/index.js'
 // import FormDetail from './form-detail/index.js'
@@ -47,7 +47,7 @@ import './theme-chalk/src/common.scss'
 const components = [
     Crud,
     Form,
-    PageForm,
+    // PageForm,
 //     FormTabs,
 //     FormSteps,
 //     FormDetail,
@@ -133,7 +133,7 @@ export default{
     install,
     Crud,
     Form,
-    PageForm,
+    // PageForm,
     // FormTabs,
     // FormSteps,
     // FormDetail,

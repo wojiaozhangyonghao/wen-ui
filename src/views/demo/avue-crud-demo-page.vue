@@ -20,15 +20,29 @@
       @export-file="exportFile"
       @selection-change="selectionChange"
     >
+     <!-- <template slot="searchSlot">
+        <a-button  type="primary" style="margin-left: 20px" id="todayTask_searchBtn">导出</a-button>
+        <a-button  type="primary" style="margin-left: 20px" id="todayTask_addBtn">导出</a-button>
+      </template> -->
       <template slot="menuLeft">
         <a-button  type="primary" style="margin-left: 20px" id="todayTask_searchBtn">导出</a-button>
         <a-button  type="primary" style="margin-left: 20px" id="todayTask_addBtn">导出</a-button>
       </template>
+      <template slot="menuRight">
+        <a-button  type="primary" style="margin-left: 20px" id="todayTask_searchBtn">导出</a-button>
+        <a-button  type="primary" style="margin-left: 20px" id="todayTask_addBtn">导出</a-button>
+          金额：
+          <a-select  style="width:75px;" >
+            <a-select-option value="万元">万元</a-select-option>
+            <a-select-option value="元">元</a-select-option>
+          </a-select>
+      </template>
        <template slot-scope="scope" slot="menu">
-      <a-icon type="edit" @click="rowEdit(scope)" class="a-icon-edit-outline" />
+      <!-- <a-icon type="edit" @click="rowEdit(scope)" id="todayTask_aaa" class="a-icon-edit-outline" /> -->
+       <a-button   id="todayTask_aaa" type="primary" @click="rowEdit3(scope)" >form</a-button>
     </template>
     <template slot="name9Form" slot-scope="scope">
-      <a-button  type="primary" @click="rowEdit3(scope)">form</a-button>
+      <a-button  type="primary" @click="rowEdit3(scope)" >form</a-button>
     </template>
       <!-- <template slot="action" slot-scope="{ tableRow }">
 					<a @click="handleTableInfo(tableRow)" href="javascript:void(0);"> Info </a> -->
@@ -41,12 +55,6 @@
           tableRow.name1
         }}</a> -->
       </template>
-       <!-- <template slot="name4" slot-scope="row">
-        <span>{{row.name4}}</span>
-        <a @click="handleTableEmmm(tableRow)" href="javascript:void(0);">{{
-          tableRow.name4
-        }}</a>
-      </template> -->
     </avue-crud>
        <!-- <a-table :data-source="data2">
     <a-table-column-group>
@@ -101,7 +109,7 @@
   </a-card>
 </template>
 <script>
-import { tableOption, fetchList,steps , delObj, putObj } from "./avue-crud-demo";
+import { tableOption,steps , delObj, putObj } from "./avue-crud-demo";
 export default {
   name: "avue-crud-demo-page",
   components: {},

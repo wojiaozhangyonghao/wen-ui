@@ -1,8 +1,7 @@
 <template>
   <div class="from">
-             <!-- :label-width="setPx(option.labelWidth,80)" -->
     <a-form-model  
-              class="ant-advanced-search-form" 
+    class="ant-advanced-search-form" 
               ref="form"
              :model="form"
              :label-align="option.labelPosition"
@@ -80,7 +79,15 @@
               </a-form-model-item>
             </a-col>
           </div>
-          <div :class="{'avue-row':column.row}"    v-else v-for="(column1,index) in column.children" :key="column.dataIndex">
+          <div v-else :key="column.dataIndex">
+            <a-col :span="24" v-if="column.groupName">
+          <div class="title-bar">
+              <div class="title-icon"></div>
+              <div class="title-name">{{column.groupName}}</div>
+              <div class="line"></div>
+          </div>
+            </a-col>
+          <div :class="{'avue-row':column.row}"     v-for="(column1,index) in column.children" :key="column.dataIndex">
             <a-col :span="column1.span || 12">
               <a-form-model-item :label="column1.title"
                             :prop="column1.dataIndex"
@@ -148,7 +155,12 @@
                            @change="formChange(index)"></component>
               </a-form-model-item>
             </a-col>
+             
           </div>
+          <!-- <a-divider dashed /> -->
+            <!-- </a-col> -->
+          </div>
+           
           <a-col style="margin-bottom: 10px" :span="24"  :key="index" v-if="vaildData(column.groupLine,false)">
             <div style="height:5px;border-bottom: 2px #eeeeee dashed;">
             </div>
@@ -331,6 +343,32 @@ export default {
 </script>
 
 <style lang="scss">
+.title-bar {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  .title-icon {
+    height: 20px;
+    width: 10px;
+    background: #3032A4;
+    margin-right: 10px;
+  }
+  .title-name {
+    margin-right:24px;
+    font-size: 16px;
+  }
+  .line {
+    flex: 1;
+    height: 1px;
+    background: #ebedf0;
+  }
+  .control{
+    margin:0 12px;
+    button{
+      margin:0 4px;
+    }
+  }
+}
 .ant-advanced-search-form .ant-form-item {
   display: flex;
 }
@@ -338,7 +376,6 @@ export default {
 .ant-advanced-search-form .ant-form-item-control-wrapper {
   flex: 1;
 }
-
 .from {
   padding: 8px 10px;
 }

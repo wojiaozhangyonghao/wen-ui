@@ -1,6 +1,6 @@
 {
   "name": "web-ant-ui",
-  "version": "0.3.1",
+  "version": "0.3.5",
   "description": "ant-design中常用表格组件封装",
   "private": false,
   "author": "kuangshp &lt;kuangshp@126.com&gt;",
@@ -19,7 +19,7 @@
     "ant-design-vue": "^1.5.4",
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
-    "driver.js": "^0.9.8",
+    "driver.js": "^0.6.2",
     "echarts": "^4.7.0",
     "file-saver": "^2.0.2",
     "mammoth": "^1.4.9",

@@ -1,9 +1,8 @@
 <template>
   <div class="crud-container pull-auto">
     <div class="crud-header">
-      <!-- <el-collapse-transition> -->
         <a-collapse v-model="activeNames" accordion :bordered="false">
-          <a-collapse-panel key="searchForm"  v-if="searchFlag && searchShow ">
+          <a-collapse-panel key="searchForm"  v-if="(searchFlag && searchShow) || option.searchSlot ">
             <template slot="header">
             <a-icon  type="setting"></a-icon>{{vaildData(option.functionName,'工具栏')}}   
             </template>
@@ -33,29 +32,61 @@
                   >使用帮助</a-button>
                 </a-col>
               </a-row>
-                <a-form-model :model="searchForm"
-                        layout="inline"
-                        ref="searchForm">
-                  <!-- 循环列搜索框 -->
-                  <a-form-model-item :label="column.title"
-                                :prop="column.dataIndex"
-                                v-for="(column,index) in option.column"
-                                :key="index"
-                                v-if="column.search"
-                                >
-                    <component :format="column.format"
+              <a-form-model  
+              class="ant-advanced-search-form" 
+              ref="form"
+             :model="searchForm"
+             :label-align="option.labelPosition"
+             :label-col="option.labelCol || { span: 4 }">
+      <a-row :gutter="20" :span="24">
+        <template v-for="(column,index) in option.column">
+          <div :class="{'avue-row':column.row}"  :key="index" v-if="!column.groupName">
+            <a-col :span="column.searchSpan || 6" v-if="column.search">
+              <a-form-model-item :label="column.title"
+                            :prop="column.dataIndex"
+                            :label-col="column.labelCol || { span: 8 }"
+                            >
+                <component :format="column.format"
                               :size="option.searchSize"
                               :is="getSearchType(column)"
                               v-model="searchForm[column.dataIndex]"
                               :type="column.type"
                               :isSearch="true"
+                              :multiple="column.multiple"
                               :allowClear="column.allowClear"
                               :showSearch='column.showSearch'
                               :placeholder="column.title"
                                :valueFormat="column.valueFormat"
                                :dic="setDic(column.dicData,DIC[column.dicData])"></component>
-                  </a-form-model-item>
-                  <a-form-model-item>
+              </a-form-model-item>
+            </a-col>
+          </div>
+          <div :class="{'avue-row':column.row}"    v-else v-for="(column1,index) in column.children" :key="column.dataIndex">
+            <a-col :span="column1.searchSpan || 6" v-if="column1.search">
+              <a-form-model-item :label="column1.title"
+                            :prop="column1.dataIndex"
+                            :label-col="column1.labelCol || { span: 8 }"
+                            >
+                <component :format="column.format"
+                              :size="option.searchSize"
+                              :is="getSearchType(column)"
+                              v-model="searchForm[column.dataIndex]"
+                              :type="column.type"
+                              :isSearch="true"
+                              :multiple="column.multiple"
+                              :allowClear="column.allowClear"
+                              :showSearch='column.showSearch'
+                              :placeholder="column.title"
+                               :valueFormat="column.valueFormat"
+                               :dic="setDic(column.dicData,DIC[column.dicData])"></component>
+              </a-form-model-item>
+            </a-col>
+          </div>
+
+        </template>
+
+        <a-col :span="6" v-if="vaildData(option.menuBtn,true)">
+           <a-form-model-item v-if="!option.searchSlot">
                     <a-button type="primary"
                               @click="searchChnage(option.column)"
                               icon="search"
@@ -70,10 +101,12 @@
                               style="margin-left:20px;"
                               :size="option.searchSize">清空</a-button>
                   </a-form-model-item>
-                </a-form-model>
+        </a-col>
+      </a-row>
+    </a-form-model>
+                 <slot name="searchSlot"></slot>
           </a-collapse-panel>
         </a-collapse>
-      <!-- </el-collapse-transition> -->
     </div>
     <!-- 表格功能列 -->
     <div class="crud-menu">
@@ -87,17 +120,21 @@
       </div>
       <div class="crud-menu_right">
         <slot name="menuRight"></slot>
-        <a-button icon="reload"
+        <a-button   
+                  id="global_refresh"
+                  icon="reload"
                     shape="circle"
                    style="background:#67C23A;border-color:#67C23A;color:#fff;"
                    @click="refreshChange"
                    v-if="vaildData(option.refreshBtn,true)"></a-button>
         <a-button icon="appstore"
+                    id="global_showClomnu"
                     shape="circle"
                    type="primary"
                    @click="showClomnuBox=true"
                    v-if="vaildData(option.showClomnuBtn,true)"></a-button>
         <a-button icon="search"
+                     id="global_showSearch"
                     shape="circle"
                    style="background:#E6A23C;border-color:#E6A23C;color:#fff;"
                    @click="searchShow=!searchShow"
@@ -310,6 +347,9 @@
                        :header-align="option.menuHeaderAlign"
                        :width="vaildData(option.menuWidth,150)">
         <template slot-scope="text, record,index">
+          <slot :row="record"
+                name="menu"
+                :index="index"></slot>
           <template v-if="vaildData(option.menu,true)">
             <a-tooltip  title="编辑该条信息" v-if="vaildData(option.editBtn,true)">
                <!-- <i @click="rowEdit(record,scope.$index)" class="el-icon-edit-outline"></i> -->
@@ -347,9 +387,7 @@
                 ></a-button>
             </a-tooltip>
           </template>
-          <slot :row="record"
-                name="menu"
-                :index="index"></slot>
+          
         </template>
       </a-table-column> 
     </a-table> 
@@ -522,7 +560,31 @@ export default {
             title: "前进",
             description: "点击可以前进到下一页(在点击过后退的情况下才有效)"
           }
-        }
+        },
+        {
+          element: "#global_refresh",
+          popover: {
+            title: "刷新",
+            description: "点击可以刷新列表数据",
+            position: "left"
+          }
+        },
+        {
+          element: "#global_showClomnu",
+          popover: {
+            title: "表头显隐",
+            description: "点击可以编辑表头数据显隐",
+            position: "left"
+          }
+        },
+        {
+          element: "#global_showSearch",
+          popover: {
+            title: "操作列",
+            description: "点击可以使操作列显隐",
+            position: "left"
+          }
+        },
       ]
     };
   },
@@ -660,6 +722,15 @@ export default {
     },
     showClomnuInit: function () {
       this.option.column.forEach((ele, index) => {
+        if (ele.groupName){
+          ele.children.forEach((item,i)=>{
+            let children = {
+            label: item.title,
+            index: i
+          };
+          this.showClomnuList.push(Object.assign({}, children));
+          })
+        }
         if (validatenull(ele.hide)) {
           this.showClomnuIndex.push(index);
         }

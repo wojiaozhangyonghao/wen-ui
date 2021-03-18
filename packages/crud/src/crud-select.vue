@@ -76,7 +76,7 @@ export default {
       );
     },
     handleChange (value) {
-      console.log(typeof this.text,'this.text')
+      console.log(typeof this.text,'this.text11')
       console.log(value,'value')
       this.$emit("input", value);
       this.$emit("change", value);

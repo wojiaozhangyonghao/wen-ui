@@ -32,7 +32,7 @@ export const steps  = {
         "popover": {
           "title": "查询",
           "description": "点击按钮可以查询任务信息",
-          "position": "top-right"
+          // "position": "top-right"
         }
       },
       {
@@ -40,14 +40,23 @@ export const steps  = {
         "popover": {
           "title": "新增任务",
           "description": "点击按钮新增任务",
-          "position": "bottom-center"
+          // "position": "bottom-center"
         }
-      }
+      },
+      // {
+      //   "element": "#todayTask_aaa",
+      //   "popover": {
+      //     "title": "编辑任务",
+      //     "description": "点击按钮编辑任务",
+      //     "position": "left"
+      //   }
+      // }
     ]
 }
 export const tableOption = {
-  showBar:true,
-  functionName:'装备查询',
+  searchSlot:false,//搜索条件slot
+  showBar:true,// 引导
+  functionName:'装备查询',//查询标头
   menu:true,// 操作列是否显示
   selection: true,//table 左侧的可选框是否显示
   // dicUrl: dicUrl,//dicUrl : 字典服务器地址
@@ -58,11 +67,12 @@ export const tableOption = {
   border: true, // 表格是否有边框 
   // searchSize: "small", // 搜索按钮 与搜索条件 大小  Large Default  small
   addBtn: true,  // 新增按钮是否显示
-  editBtn: true, // 编辑按钮是否显示
+  editBtn: false, // 编辑按钮是否显示
   viewBtn: false, // 查看按钮是否显示
   delBtn:true, // 删除按钮 是否显示
   exportFileBtn:false,// 导出按钮是否显示
   labelCol:{ span: 12 }, // 表单label width
+  labelPosition:'left',
   refreshBtn:true, // 刷新按钮 是否显示
   showClomnuBtn:true, // 配置表格显示列按钮 是否显示
   showSearchBtn:true, // 是否 收起搜索条件按钮  是否显示
@@ -80,6 +90,7 @@ export const tableOption = {
       ellipsis: true,
       width: 200,
       span:12,
+      searchSpan:6,//搜索条件span
       prefix:'¥', //输入框头部内容
       suffix:'RMB',//输入框尾部内容
       allowClear:false,
@@ -97,22 +108,25 @@ export const tableOption = {
         children: [
           {
             title: "是否定型（含配套）",
-            dataIndex: "technicalStatusIsFixed ",
-            key: "technicalStatusIsFixed ",
+            dataIndex: "technicalStatusIsFixed",
+            key: "technicalStatusIsFixed",
             width: 180,
             ellipsis: true,
+            searchSpan:6,
+            // labelCol:{ span: 12 },
+            search: true,
         },
          {
             title: "图纸是否鉴章（含配套）",
-            dataIndex: "technicalStatusIsSignature ",
-            key: "technicalStatusIsSignature ",
+            dataIndex: "technicalStatusIsSignature",
+            key: "technicalStatusIsSignature",
             width: 100,
           //   ellipsis: true,
         },
         {
             title: "配套装备是否存在待竞争确定价格情况（军方组织或军方委托承制单位组织的）",
-            dataIndex: "technicalStatusWaitCompete ",
-            key: "technicalStatusWaitCompete ",
+            dataIndex: "technicalStatusWaitCompete",
+            key: "technicalStatusWaitCompete",
             width: 180,
           //   ellipsis: true,
         },
@@ -125,9 +139,9 @@ export const tableOption = {
       // ellipsis: true,
       type:'select',
       span:12,
-      // search: true,
+      search: true,
       dicData:DIC.channels,
-      showSearch:true,
+      showSearch:true,//多选框是否开启搜索
       width: 200,
       // formsolt: true,
     },
@@ -137,6 +151,7 @@ export const tableOption = {
       key: 'name3',
       span:12,
       type:'select',
+      search: true,
       multiple:'multiple',
       dicData:DIC.channels,
       ellipsis: true,
@@ -148,6 +163,7 @@ export const tableOption = {
       dataIndex: "goalPrice",
       key: 'goalPrice',
       width: 250,
+      search: true,
       type: "number",
       minRows:1000,
       maxRows:10000,
@@ -185,6 +201,35 @@ export const tableOption = {
     //   width: 200,
     //   ellipsis: true, // 超过宽度将自动省略
     // },
+    {
+      groupName: '技术状态固化情况2',
+         children: [
+           {
+             title: "是否定型（含配套）",
+             dataIndex: "technicalStatusIsFixed1",
+             key: "technicalStatusIsFixed1",
+             width: 180,
+             ellipsis: true,
+             searchSpan:6,
+             // labelCol:{ span: 12 },
+             search: true,
+         },
+          {
+             title: "图纸是否鉴章（含配套）",
+             dataIndex: "technicalStatusIsSignature2",
+             key: "technicalStatusIsSignature2",
+             width: 100,
+           //   ellipsis: true,
+         },
+         {
+             title: "配套装备是否存在待竞争确定价格情况（军方组织或军方委托承制单位组织的）",
+             dataIndex: "technicalStatusWaitCompete3",
+             key: "technicalStatusWaitCompete3",
+             width: 180,
+           //   ellipsis: true,
+         },
+         ]
+     },
     {
       title: "月份",
       key: 'offerPriceTime',
@@ -244,8 +289,8 @@ export const tableOption = {
       span:12,
       dataIndex: "reportPriceTime",
       addVisdiplay:false,
-      editVisdiplay:false,
-      viewVisdiplay:false,
+      // editVisdiplay:false,
+      // viewVisdiplay:false,
       width: 200,
       ellipsis: true, // 超过宽度将自动省略
     },
@@ -254,6 +299,7 @@ export const tableOption = {
       key: 'examineOrg',
       dataIndex: "examineOrg",
       width: 200,
+      search: true,
       span:12,
       // formsolt:true,
       ellipsis: true, // 超过宽度将自动省略
@@ -264,6 +310,7 @@ export const tableOption = {
       dataIndex: "company",
       width: 200,
       span:12,
+      search: true,
       // type:"ueditor",
       // sortable: true,
       ellipsis: true, // 超过宽度将自动省略
@@ -271,6 +318,7 @@ export const tableOption = {
     {
       title: "批价文号",
       key: 'name8',
+      // search: true,
       dataIndex: "name8",
       width: 200,
       span:12,
@@ -281,6 +329,7 @@ export const tableOption = {
       key: 'name9',
       dataIndex: "name9",
       width: 200,
+      // search: true,
       span:12,
       formsolt:true,
       ellipsis: true, // 超过宽度将自动省略
