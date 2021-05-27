@@ -63,15 +63,17 @@ export const tableOption = {
   menuWidth: 120,// table 右侧操作按钮列的宽度，默认为120,
   workflow: false,//必填，标记工作流状态
   width:500, //表格宽度     不写宽度表格底部scroll 消失
-  // height:"auto", // 表格高度
+  // height:800, // 表格高度
   border: true, // 表格是否有边框 
-  // searchSize: "small", // 搜索按钮 与搜索条件 大小  Large Default  small
+  searchSize: "default", // 搜索条件框 大小  large default  small
+  searchSizeBtn:"default", // 搜索按钮  大小  large default  small
   addBtn: true,  // 新增按钮是否显示
-  editBtn: false, // 编辑按钮是否显示
+  editBtn: true, // 编辑按钮是否显示
   viewBtn: false, // 查看按钮是否显示
   delBtn:true, // 删除按钮 是否显示
-  exportFileBtn:false,// 导出按钮是否显示
-  labelCol:{ span: 12 }, // 表单label width
+  // exportFileBtn:false,// 导出按钮是否显示
+  labelCol:{ span: 6 }, // 表单label width
+  // searchLabelCol:{ span: 8 }, // 搜索条件label width
   labelPosition:'left',
   refreshBtn:true, // 刷新按钮 是否显示
   showClomnuBtn:true, // 配置表格显示列按钮 是否显示
@@ -80,20 +82,27 @@ export const tableOption = {
   pageSizeOptions: ['10', '20', '30', '40', '50'],//指定每页可以显示多少条
   size:"small",    //表格大小  default | middle | small
   showHeader:true,  // 是否显示表头
-  // align:"left",    //设置列内容的对齐方式  	'left' | 'right' | 'center'
+  align:"left",    //设置列内容的对齐方式  	'left' | 'right' | 'center'
+  formWidth:'70%',//表单弹框宽度
+  selectClearBtn:true,//多选清空按钮是否显示
+  menuAlign:"left",//菜单栏对齐方式
   column :[
     {
       dataIndex: 'name1',
       key: 'name1',
-      title: '系统ID',
+      title: '首批订购完成时间',
       search: true,
       ellipsis: true,
       width: 200,
+      // size:'large',
       span:12,
-      searchSpan:6,//搜索条件span
+      valueDefault:'a',
+      // searchLabelCol:{ span: 12 },
+      // disabled:true,
+      // searchSpan:8,//搜索条件span
       prefix:'¥', //输入框头部内容
       suffix:'RMB',//输入框尾部内容
-      allowClear:false,
+      allowClear:false,//表单清空
       placeholder:"sssssssssss",
       // slots: { title: 'customTitle' },
       scopedSlots: { customRender: 'id' },
@@ -117,14 +126,14 @@ export const tableOption = {
             search: true,
         },
          {
-            title: "图纸是否鉴章（含配套）",
+            title: "图纸是否鉴章",
             dataIndex: "technicalStatusIsSignature",
             key: "technicalStatusIsSignature",
             width: 100,
           //   ellipsis: true,
         },
         {
-            title: "配套装备是否存在待竞争确定价格情况（军方组织或军方委托承制单位组织的）",
+            title: "配套装备是否存",
             dataIndex: "technicalStatusWaitCompete",
             key: "technicalStatusWaitCompete",
             width: 180,
@@ -133,12 +142,13 @@ export const tableOption = {
         ]
     },
     {
-      title: '采购方式',
+      title: '批量生产满一年时间',
       dataIndex: 'planName',
       key: 'planName',
       // ellipsis: true,
       type:'select',
       span:12,
+      editDisabled:true,
       search: true,
       dicData:DIC.channels,
       showSearch:true,//多选框是否开启搜索
@@ -201,35 +211,35 @@ export const tableOption = {
     //   width: 200,
     //   ellipsis: true, // 超过宽度将自动省略
     // },
-    {
-      groupName: '技术状态固化情况2',
-         children: [
-           {
-             title: "是否定型（含配套）",
-             dataIndex: "technicalStatusIsFixed1",
-             key: "technicalStatusIsFixed1",
-             width: 180,
-             ellipsis: true,
-             searchSpan:6,
-             // labelCol:{ span: 12 },
-             search: true,
-         },
-          {
-             title: "图纸是否鉴章（含配套）",
-             dataIndex: "technicalStatusIsSignature2",
-             key: "technicalStatusIsSignature2",
-             width: 100,
-           //   ellipsis: true,
-         },
-         {
-             title: "配套装备是否存在待竞争确定价格情况（军方组织或军方委托承制单位组织的）",
-             dataIndex: "technicalStatusWaitCompete3",
-             key: "technicalStatusWaitCompete3",
-             width: 180,
-           //   ellipsis: true,
-         },
-         ]
-     },
+    // {
+    //   groupName: '技术状态固化情况2',
+    //      children: [
+    //        {
+    //          title: "是否定型（含配套）",
+    //          dataIndex: "technicalStatusIsFixed1",
+    //          key: "technicalStatusIsFixed1",
+    //          width: 180,
+    //          ellipsis: true,
+    //          searchSpan:6,
+    //          // labelCol:{ span: 12 },
+    //          search: true,
+    //      },
+    //       {
+    //          title: "图纸是否鉴章（含配套）",
+    //          dataIndex: "technicalStatusIsSignature2",
+    //          key: "technicalStatusIsSignature2",
+    //          width: 100,
+    //        //   ellipsis: true,
+    //      },
+    //      {
+    //          title: "配套装备是否存在待竞争确定价格情况（军方组织或军方委托承制单位组织的）",
+    //          dataIndex: "technicalStatusWaitCompete3",
+    //          key: "technicalStatusWaitCompete3",
+    //          width: 180,
+    //        //   ellipsis: true,
+    //      },
+    //      ]
+    //  },
     {
       title: "月份",
       key: 'offerPriceTime',
@@ -251,6 +261,8 @@ export const tableOption = {
       dataIndex: "examinePriceTime",
       valueFormat: "YYYY-MM-DD",
       format: "YYYY-MM-DD",
+      valueDefault:'2020-02-02 12:12:12',
+      searchDefault:'2020-02-02 12:12:12',
       width: 200,
       ellipsis: true, // 超过宽度将自动省略
     },
@@ -266,21 +278,21 @@ export const tableOption = {
       width: 200,
       ellipsis: true, // 超过宽度将自动省略
     },
-    // {
-    //   title: "年度range",
-    //   key: 'reportPriceTime',
-    //   type:'yearRange',
-    //   hide:true,
-    //   search: true,
-    //   addVisdiplay:false,
-    //   editVisdiplay:false,
-    //   viewVisdiplay:false,
-    //   dataIndex: "reportPriceTime",
-    //   // valueFormat: "YYYY-MM-DD",
-    //   format: "YYYY",
-    //   width: 200,
-    //   ellipsis: true, // 超过宽度将自动省略
-    // },
+    {
+      title: "年度",
+      key: 'reportPriceTime',
+      type:'yearRange',
+      hide:true,
+      search: true,
+      addVisdiplay:false,
+      editVisdiplay:false,
+      viewVisdiplay:false,
+      dataIndex: "reportPriceTime",
+      // valueFormat: "YYYY-MM-DD",
+      format: "YYYY",
+      width: 200,
+      ellipsis: true, // 超过宽度将自动省略
+    },
     {
       title: "年限range",
       key: 'reportPriceTime',
@@ -344,7 +356,7 @@ export const tableOption = {
       type: "textarea",
       // search: false,// 是否在搜索条件显示
       width: 250,//列宽
-      align:"left", // 设置列内容的对齐方式
+      align:"right", // 设置列内容的对齐方式
       ellipsis: true, // 超过宽度将自动省略
       // sortable:true, //是否开启排序
       // fixed:"left", // 列可固定   true(等效于 left)  left|right  

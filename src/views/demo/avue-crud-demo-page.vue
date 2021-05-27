@@ -241,7 +241,8 @@ export default {
             id:"2",
             name1:'大幅度发的说法111',
             name2:'dsfdsfdsfdsf211',
-            name3:'反倒是第三方第三方111'
+            name3:'反倒是第三方第三方111',
+            technicalStatusIsFixed1:'三生三世'
           }
         ]
       // this.tableLoading = true;

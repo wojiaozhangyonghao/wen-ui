@@ -37,14 +37,14 @@
               ref="form"
              :model="searchForm"
              :label-align="option.labelPosition"
-             :label-col="option.labelCol || { span: 4 }">
+             :label-col="option.searchLabelCol || { span: 8 }">
       <a-row :gutter="20" :span="24">
         <template v-for="(column,index) in option.column">
           <div :class="{'avue-row':column.row}"  :key="index" v-if="!column.groupName">
             <a-col :span="column.searchSpan || 6" v-if="column.search">
               <a-form-model-item :label="column.title"
                             :prop="column.dataIndex"
-                            :label-col="column.labelCol || { span: 8 }"
+                            :label-col="column.searchLabelCol"
                             >
                 <component :format="column.format"
                               :size="option.searchSize"
@@ -57,6 +57,7 @@
                               :showSearch='column.showSearch'
                               :placeholder="column.title"
                                :valueFormat="column.valueFormat"
+                               :searchDefault="column.searchDefault"
                                :dic="setDic(column.dicData,DIC[column.dicData])"></component>
               </a-form-model-item>
             </a-col>
@@ -65,10 +66,10 @@
             <a-col :span="column1.searchSpan || 6" v-if="column1.search">
               <a-form-model-item :label="column1.title"
                             :prop="column1.dataIndex"
-                            :label-col="column1.labelCol || { span: 8 }"
+                            :label-col="column1.searchLabelCol || { span: 6 }"
                             >
                 <component :format="column.format"
-                              :size="option.searchSize"
+                              :size="option.searchSizeBtn"
                               :is="getSearchType(column)"
                               v-model="searchForm[column.dataIndex]"
                               :type="column.type"
@@ -78,6 +79,7 @@
                               :showSearch='column.showSearch'
                               :placeholder="column.title"
                                :valueFormat="column.valueFormat"
+                               :searchDefault="column.searchDefault"
                                :dic="setDic(column.dicData,DIC[column.dicData])"></component>
               </a-form-model-item>
             </a-col>
@@ -90,12 +92,12 @@
                     <a-button type="primary"
                               @click="searchChnage(option.column)"
                               icon="search"
-                              :size="option.searchSize">搜索</a-button>
-                    <a-button type="success"
+                              :size="option.searchSizeBtn">搜索</a-button>
+                    <!-- <a-button type="success"
                           size="small"
                           @click="exportFile"
                           icon="document"
-                          v-if="vaildData(option.exportFileBtn,false)">导出</a-button>
+                          v-if="vaildData(option.exportFileBtn,false)">导出</a-button> -->
                     <a-button @click="searchReset"
                               icon="delete"
                               style="margin-left:20px;"
@@ -344,7 +346,6 @@
                        key="action"
                        title="操作"
                        :align="option.menuAlign"
-                       :header-align="option.menuHeaderAlign"
                        :width="vaildData(option.menuWidth,150)">
         <template slot-scope="text, record,index">
           <slot :row="record"
@@ -355,6 +356,7 @@
                <!-- <i @click="rowEdit(record,scope.$index)" class="el-icon-edit-outline"></i> -->
               <!-- <a-icon type="edit" @click="rowEdit(record,index,option.column)" class="a-icon-edit-outline" /> -->
               <a-button
+                      style="color: #88c35b;"
                       type="dashed"
                       @click="rowEdit(record,index,option.column)"
                       shape="circle"
@@ -370,7 +372,7 @@
                         shape="circle"
                         size="small"
                         icon="database"
-                        style="margin-left:5px"
+                        style="margin-left:5px;color: #88c35b;"
                         @click="rowView(record,index,option.column)"
                 ></a-button>
             </a-tooltip>
@@ -407,10 +409,9 @@
                    <!-- <a-pagination show-quick-jumper :default-current="2" :total="500" @change="onChange" /> -->
                    <!-- layout="total, sizes, prev, pager, next, jumper" -->
     <!-- 表单 -->
-               <!-- lock-scroll -->
+               <!-- lock-scroll dialogClass-->
     <a-modal
-               :custom-class="vaildData(option.customClass,'')"
-               :fullscreen="vaildData(option.formFullscreen,false)"
+               :dialog-class="vaildData(option.dialogClass,'')"
                :maskClosable="false" 
                :modal-append-to-body="false"
                :append-to-body="true"

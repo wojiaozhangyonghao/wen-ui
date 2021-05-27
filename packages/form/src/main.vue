@@ -5,15 +5,17 @@
               ref="form"
              :model="form"
              :label-align="option.labelPosition"
-             :label-col="option.labelCol || { span: 4 }"
+             :label-col="option.labelCol || { span: 6 }"
              :rules="formRules">
+             <!-- :wrapper-col="option.wrapperCol || { span: 12 }" -->
       <a-row :gutter="20" :span="24">
         <template v-for="(column,index) in option.column">
           <div :class="{'avue-row':column.row}"  :key="index" v-if="vaildVisdiplay(column) && !column.groupName">
             <a-col :span="column.span || 12">
               <a-form-model-item :label="column.title"
                             :prop="column.dataIndex"
-                            :label-col="column.labelCol || { span: 4 }">
+                            :label-col="column.labelCol"
+                            >
                 <slot :value="form[column.dataIndex]"
                       :column="column"
                       :dic="setDic(column.dicData,DIC[column.dicData])"
@@ -82,7 +84,6 @@
           <div v-else :key="column.dataIndex">
             <a-col :span="24" v-if="column.groupName">
           <div class="title-bar">
-              <div class="title-icon"></div>
               <div class="title-name">{{column.groupName}}</div>
               <div class="line"></div>
           </div>
@@ -91,7 +92,8 @@
             <a-col :span="column1.span || 12">
               <a-form-model-item :label="column1.title"
                             :prop="column1.dataIndex"
-                            :label-col="column1.labelCol || { span: 4 }">
+                            :label-col="column1.labelCol"
+                            >
                 <slot :value="form[column1.dataIndex]"
                       :column="column1"
                       :dic="setDic(column1.dicData,DIC[column1.dicData])"
@@ -155,8 +157,8 @@
                            @change="formChange(index)"></component>
               </a-form-model-item>
             </a-col>
-             
           </div>
+             <a-divider v-if="column.groupName" />
           <!-- <a-divider dashed /> -->
             <!-- </a-col> -->
           </div>
@@ -346,29 +348,22 @@ export default {
 .title-bar {
   display: flex;
   align-items: center;
-  margin: 10px 0;
-  .title-icon {
-    height: 20px;
-    width: 10px;
-    background: #3032A4;
-    margin-right: 10px;
-  }
-  .title-name {
-    margin-right:24px;
+    .title-name {
+    height: 30px;
+    color: #333;
+    font: 700 16px/20px SourceHanSansSC-regular;
     font-size: 16px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #71bbef
   }
-  .line {
+   .line {
     flex: 1;
     height: 1px;
     background: #ebedf0;
-  }
-  .control{
-    margin:0 12px;
-    button{
-      margin:0 4px;
-    }
+    margin-top: 19px;
   }
 }
+
 .ant-advanced-search-form .ant-form-item {
   display: flex;
 }

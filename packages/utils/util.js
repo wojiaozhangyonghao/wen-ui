@@ -128,6 +128,7 @@ export const formInitVal = (list) => {
         }
     }
     if (!validatenull(ele.valueDefault)) tableForm[ele.dataIndex] = ele.valueDefault
+    if (!validatenull(ele.searchDefault)) searchForm[ele.dataIndex] = ele.searchDefault
   })
   return {
       tableForm,
