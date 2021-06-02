@@ -1045,6 +1045,9 @@ export default {
   .ant-btn-sm{
  margin: 0 25px;
   }
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header{
+    text-align: -webkit-left;
+  }
 }
 
 .crud-menu {
