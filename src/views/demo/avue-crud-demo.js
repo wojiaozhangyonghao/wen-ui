@@ -54,6 +54,7 @@ export const steps  = {
     ]
 }
 export const tableOption = {
+  menuBtn:true,//搜索清空按钮
   searchSlot:false,//搜索条件slot
   showBar:true,// 引导
   functionName:'装备查询',//查询标头
@@ -90,7 +91,7 @@ export const tableOption = {
     {
       dataIndex: 'name1',
       key: 'name1',
-      title: '首批订购完成时间',
+      title: '装备价格',
       search: true,
       ellipsis: true,
       width: 200,
@@ -112,56 +113,56 @@ export const tableOption = {
       //   }
       // }
     },
+    // {
+    //  groupName: '技术状态固化情况',
+    //     children: [
+    //       {
+    //         title: "是否定型（含配套）",
+    //         dataIndex: "technicalStatusIsFixed",
+    //         key: "technicalStatusIsFixed",
+    //         width: 180,
+    //         ellipsis: true,
+    //         searchSpan:6,
+    //         // labelCol:{ span: 12 },
+    //         // search: true,
+    //     },
+    //      {
+    //         title: "图纸是否鉴章",
+    //         dataIndex: "technicalStatusIsSignature",
+    //         key: "technicalStatusIsSignature",
+    //         width: 100,
+    //       //   ellipsis: true,
+    //     },
+    //     {
+    //         title: "配套装备是否存",
+    //         dataIndex: "technicalStatusWaitCompete",
+    //         key: "technicalStatusWaitCompete",
+    //         width: 180,
+    //       //   ellipsis: true,
+    //     },
+    //     ]
+    // },
     {
-     groupName: '技术状态固化情况',
-        children: [
-          {
-            title: "是否定型（含配套）",
-            dataIndex: "technicalStatusIsFixed",
-            key: "technicalStatusIsFixed",
-            width: 180,
-            ellipsis: true,
-            searchSpan:6,
-            // labelCol:{ span: 12 },
-            search: true,
-        },
-         {
-            title: "图纸是否鉴章",
-            dataIndex: "technicalStatusIsSignature",
-            key: "technicalStatusIsSignature",
-            width: 100,
-          //   ellipsis: true,
-        },
-        {
-            title: "配套装备是否存",
-            dataIndex: "technicalStatusWaitCompete",
-            key: "technicalStatusWaitCompete",
-            width: 180,
-          //   ellipsis: true,
-        },
-        ]
-    },
-    {
-      title: '批量生产满一年时间',
+      title: '承制单位',
       dataIndex: 'planName',
       key: 'planName',
       // ellipsis: true,
       type:'select',
       span:12,
-      editDisabled:true,
-      search: true,
+      // editDisabled:true,
+      // search: true,
       dicData:DIC.channels,
       showSearch:true,//多选框是否开启搜索
       width: 200,
       // formsolt: true,
     },
     {
-      title: '程研单位',
+      title: '承研单位',
       dataIndex: 'name3',
       key: 'name3',
       span:12,
       type:'select',
-      search: true,
+      // search: true,
       multiple:'multiple',
       dicData:DIC.channels,
       ellipsis: true,
@@ -169,11 +170,11 @@ export const tableOption = {
       // scopedSlots: { customRender: 'name' },
     },
     {
-      title: "价格类型",
+      title: "数量",
       dataIndex: "goalPrice",
       key: 'goalPrice',
       width: 250,
-      search: true,
+      // search: true,
       type: "number",
       minRows:1000,
       maxRows:10000,
@@ -244,7 +245,7 @@ export const tableOption = {
       title: "月份",
       key: 'offerPriceTime',
       type:'month',
-      search: true,
+      // search: true,
       dataIndex: "offerPriceTime",
       valueFormat: "YYYY-MM",
       format: "YYYY-MM",
@@ -257,7 +258,7 @@ export const tableOption = {
       key: 'examinePriceTime',
       type:'date',
       span:12,
-      search: true,
+      // search: true,
       dataIndex: "examinePriceTime",
       valueFormat: "YYYY-MM-DD",
       format: "YYYY-MM-DD",
@@ -271,7 +272,7 @@ export const tableOption = {
       key: 'planYear',
       type:'year',
       span:12,
-      search: true,
+      // search: true,
       dataIndex: "planYear",
       valueFormat: "YYYY",
       format: "YYYY",
@@ -283,7 +284,7 @@ export const tableOption = {
       key: 'reportPriceTime',
       type:'yearRange',
       hide:true,
-      search: true,
+      // search: true,
       addVisdiplay:false,
       editVisdiplay:false,
       viewVisdiplay:false,
@@ -297,7 +298,7 @@ export const tableOption = {
       title: "年限range",
       key: 'reportPriceTime',
       type:'dateRange',
-      search: true,
+      // search: true,
       span:12,
       dataIndex: "reportPriceTime",
       addVisdiplay:false,
@@ -311,7 +312,7 @@ export const tableOption = {
       key: 'examineOrg',
       dataIndex: "examineOrg",
       width: 200,
-      search: true,
+      // search: true,
       span:12,
       // formsolt:true,
       ellipsis: true, // 超过宽度将自动省略
@@ -322,7 +323,7 @@ export const tableOption = {
       dataIndex: "company",
       width: 200,
       span:12,
-      search: true,
+      // search: true,
       // type:"ueditor",
       // sortable: true,
       ellipsis: true, // 超过宽度将自动省略
@@ -332,6 +333,7 @@ export const tableOption = {
       key: 'name8',
       // search: true,
       dataIndex: "name8",
+      editDisabled:true,
       width: 200,
       span:12,
       ellipsis: true, // 超过宽度将自动省略

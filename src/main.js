@@ -1,3 +1,10 @@
+/*
+ * @Author: zyh
+ * @Date: 2020-12-28 10:11:17
+ * @LastEditors: zyh
+ * @LastEditTime: 2021-09-17 09:51:28
+ * @Description: file content
+ */
 import Vue from 'vue';
 import App from './App.vue';
 import antDesign from 'ant-design-vue';
@@ -9,7 +16,8 @@ import routes from './routes/routes';
 import axios from 'axios';
 import headers from '@/components/header'
 import AVUE from '../packages/index.js';
-
+import pageForm from '@/components/avue-form/page-form'
+Vue.component('pageForm', pageForm)
 Vue.use(AVUE)
 Vue.use(headers)
 Vue.use(VueRouter)

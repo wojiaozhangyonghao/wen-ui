@@ -1,6 +1,6 @@
 {
   "name": "web-ant-ui",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "ant-design中常用表格组件封装",
   "private": false,
   "author": "kuangshp &lt;kuangshp@126.com&gt;",

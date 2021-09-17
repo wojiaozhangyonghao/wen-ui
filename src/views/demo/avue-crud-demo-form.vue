@@ -1,3 +1,10 @@
+<!--
+ * @Author: zyh
+ * @Date: 2021-01-28 16:27:51
+ * @LastEditors: zyh
+ * @LastEditTime: 2021-09-17 11:18:47
+ * @Description: file content
+-->
 <template>
   <div id="requiredItem">
     <!--componentId 的值需要修改-->
@@ -11,7 +18,7 @@
       @row-save="handleSave"
       @row-update="handleUpdate">
        <template slot="name9Form" slot-scope="scope">
-      <a-button  type="primary" @click="rowEdit3(scope)">form</a-button>
+      <a-button  type="primary" @click="rowEdit3(scope)">自定义表单</a-button>
     </template>
     </page-form>
   </div>

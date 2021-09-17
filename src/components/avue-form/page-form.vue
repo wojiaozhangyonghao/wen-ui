@@ -68,9 +68,9 @@
   </div>
 </template>
 <script>
-  import crud from "../mixins/crud.js";
+  import crud from "../../../packages/mixins/crud.js";
   // import util from "@/template/mixins/util.js";
-  import avueForm from "../form/src/main.vue"
+  import avueForm from "../../../packages/form/src/main.vue"
   // import { addTempData } from "@/api/admin.js"
   import Driver from 'driver.js'
   // const steps = require("../../guide-step")

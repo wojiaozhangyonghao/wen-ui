@@ -16,8 +16,8 @@
       </a-menu-item>-->
        <a-sub-menu key="sub1">
             <span slot="title"><a-icon type="appstore" />zb价格卡片管理</span>
-           <a-menu-item key="/search">
-        <router-link to="/search">
+           <a-menu-item key="/demo">
+        <router-link to="/demo">
           <a-icon type="search" />
           <span>价格卡片查询</span>
         </router-link>

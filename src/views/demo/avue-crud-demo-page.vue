@@ -38,11 +38,11 @@
           </a-select>
       </template>
        <template slot-scope="scope" slot="menu">
-      <!-- <a-icon type="edit" @click="rowEdit(scope)" id="todayTask_aaa" class="a-icon-edit-outline" /> -->
-       <a-button   id="todayTask_aaa" type="primary" @click="rowEdit3(scope)" >form</a-button>
+      <a-icon type="edit" @click="rowEdit(scope)" id="todayTask_aaa" style="margin:0 10px;" class="a-icon-edit-outline" />
+       <!-- <a-button   id="todayTask_aaa" type="primary" @click="rowEdit3(scope)" >form</a-button> -->
     </template>
     <template slot="name9Form" slot-scope="scope">
-      <a-button  type="primary" @click="rowEdit3(scope)" >form</a-button>
+      <a-button  type="primary" @click="rowEdit3(scope)" >自定义表单</a-button>
     </template>
       <!-- <template slot="action" slot-scope="{ tableRow }">
 					<a @click="handleTableInfo(tableRow)" href="javascript:void(0);"> Info </a> -->
@@ -166,7 +166,7 @@ export default {
   methods: {
     rowEdit( row){
       console.log(row,'row')
-      this.$store.commit('SET_ROUTER_PARAMS', {title: 'sss', params: row.row, boxType: 'edit',})
+      this.$store.commit('SET_ROUTER_PARAMS', {title: '项目编辑', params: row.row, boxType: 'edit',})
         this.$router.push('/form')
     },
      handleSubmit(e) {
@@ -225,23 +225,26 @@ export default {
        this.data =[
           {
             id:"1",
-            name1:'大幅度发的说法',
-            name2:'dsfdsfdsfdsf',
-            name3:'dsfdsfdsfdsf',
+            name1:'8888',
+            name2:'aa',
+            name3:'SMS',
             name4:'dsfdsfdsfdsf',
-            planName:'SMS',
+            planName:'WEB',
             offerPriceTime:'2020-02-02 12:12:12',
             planYear:'2020-01-01 12:12:12',
             examinePriceTime:'2020-09-09 12:12:12',
             name9:'2020-09-09 12:12:12',
+            goalPrice:1000,
+            examineOrg:'aaa',
             name5:'dsfdsfdsfdsf反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第',
             name6:'反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三方'
           },
           {
             id:"2",
-            name1:'大幅度发的说法111',
-            name2:'dsfdsfdsfdsf211',
-            name3:'反倒是第三方第三方111',
+            name1:'888',
+            name2:'测试',
+             planName:'WEB',
+            name3:'MAIL',
             technicalStatusIsFixed1:'三生三世'
           }
         ]

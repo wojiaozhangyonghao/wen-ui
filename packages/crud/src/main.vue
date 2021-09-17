@@ -9,7 +9,7 @@
             <a-row v-if="option.showBar">
                 <a-col
                   :span="24"
-                  style="text-align: right; padding-right: 20px; margin-bottom: 15px"
+                  style="text-align: right;"
                 >
                   <a-button
                     id="global_back"
@@ -34,7 +34,7 @@
               </a-row>
               <a-form-model  
               class="ant-advanced-search-form" 
-              ref="form"
+              ref="searchForm"
              :model="searchForm"
              :label-align="option.labelPosition"
              :label-col="option.searchLabelCol || { span: 8 }">
@@ -62,25 +62,25 @@
               </a-form-model-item>
             </a-col>
           </div>
-          <div :class="{'avue-row':column.row}"    v-else v-for="(column1,index) in column.children" :key="column.dataIndex">
+          <div :class="{'avue-row':column.row}"    v-else v-for="(column1,index) in column.children" :key="column1.dataIndex">
             <a-col :span="column1.searchSpan || 6" v-if="column1.search">
               <a-form-model-item :label="column1.title"
                             :prop="column1.dataIndex"
-                            :label-col="column1.searchLabelCol || { span: 6 }"
+                            :label-col="column1.searchLabelCol"
                             >
-                <component :format="column.format"
+                <component :format="column1.format"
                               :size="option.searchSizeBtn"
-                              :is="getSearchType(column)"
-                              v-model="searchForm[column.dataIndex]"
-                              :type="column.type"
+                              :is="getSearchType(column1)"
+                              v-model="searchForm[column1.dataIndex]"
+                              :type="column1.type"
                               :isSearch="true"
-                              :multiple="column.multiple"
-                              :allowClear="column.allowClear"
-                              :showSearch='column.showSearch'
-                              :placeholder="column.title"
-                               :valueFormat="column.valueFormat"
-                               :searchDefault="column.searchDefault"
-                               :dic="setDic(column.dicData,DIC[column.dicData])"></component>
+                              :multiple="column1.multiple"
+                              :allowClear="column1.allowClear"
+                              :showSearch='column1.showSearch'
+                              :placeholder="column1.title"
+                               :valueFormat="column1.valueFormat"
+                               :searchDefault="column1.searchDefault"
+                               :dic="setDic(column1.dicData,DIC[column1.dicData])"></component>
               </a-form-model-item>
             </a-col>
           </div>
@@ -759,6 +759,7 @@ export default {
     },
     //搜索清空
     searchReset () {
+      console.log( this.$refs["searchForm"],' this.$refs["searchForm"]')
       this.$refs["searchForm"].resetFields();
     },
     // 页大小回调  第几页
