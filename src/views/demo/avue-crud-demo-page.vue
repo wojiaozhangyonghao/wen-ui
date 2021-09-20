@@ -26,16 +26,16 @@
       </template> -->
       <template slot="menuLeft">
         <a-button  type="primary" style="margin-left: 20px" id="todayTask_searchBtn">导出</a-button>
-        <a-button  type="primary" style="margin-left: 20px" id="todayTask_addBtn">导出</a-button>
+        <!-- <a-button  type="primary" style="margin-left: 20px" id="todayTask_addBtn">导出</a-button> -->
       </template>
       <template slot="menuRight">
-        <a-button  type="primary" style="margin-left: 20px" id="todayTask_searchBtn">导出</a-button>
-        <a-button  type="primary" style="margin-left: 20px" id="todayTask_addBtn">导出</a-button>
-          金额：
-          <a-select  style="width:75px;" >
+        <!-- <a-button  type="primary" style="margin-left: 20px" id="todayTask_searchBtn">导出</a-button>
+        <a-button  type="primary" style="margin-left: 20px" id="todayTask_addBtn">导出</a-button> -->
+          <!-- 金额：
+          <a-select  style="width:75px;" default-value="万元">
             <a-select-option value="万元">万元</a-select-option>
             <a-select-option value="元">元</a-select-option>
-          </a-select>
+          </a-select> -->
       </template>
        <template slot-scope="scope" slot="menu">
       <a-icon type="edit" @click="rowEdit(scope)" id="todayTask_aaa" style="margin:0 10px;" class="a-icon-edit-outline" />
@@ -187,18 +187,18 @@ export default {
       console.log(this.data, "this.data");
     },
     rowUpdate(form, index, done) {
-       putObj(form).then(response => {
-            this.handleList();
-            this.$message.success('修改成功');
-          });
-          done()
-      // this.$message.success("模拟网络请求");
-      // setTimeout(() => {
-      //   this.$message.success(
-      //     "编辑数据" + JSON.stringify(form) + "数据序号" + index
-      //   );
-      //   done();
-      // }, 2000);
+      //  putObj(form).then(response => {
+      //       this.handleList();
+      //       this.$message.success('修改成功');
+      //     });
+      //     done()
+      this.$message.success("模拟网络请求");
+      setTimeout(() => {
+        this.$message.success(
+          "编辑数据" + JSON.stringify(form) + "数据序号" + index
+        );
+        done();
+      }, 2000);
     },
     rowDel(row, index) {
       let that = this;
@@ -209,12 +209,12 @@ export default {
         okType: "danger",
         cancelText: "取消",
         onOk() {
-          // that.data.splice(index, 1);
-          // that.$message.success('删除数据' + JSON.stringify(form))
-          delObj(row.id).then((response) => {
-            that.handleList();
-            that.$message.success("删除成功");
-          });
+          that.data.splice(index, 1);
+          that.$message.success('删除数据' + JSON.stringify(row))
+          // delObj(row.id).then((response) => {
+          //   that.handleList();
+          //   that.$message.success("删除成功");
+          // });
         },
         onCancel() {
           console.log("Cancel");
@@ -225,29 +225,200 @@ export default {
        this.data =[
           {
             id:"1",
-            name1:'8888',
+            planName:'WEB',
+            company:"野战电话机14",
+            name1:'13258.00',
             name2:'aa',
             name3:'SMS',
-            name4:'dsfdsfdsfdsf',
-            planName:'WEB',
+            name4:'APP',
             offerPriceTime:'2020-02-02 12:12:12',
             planYear:'2020-01-01 12:12:12',
             examinePriceTime:'2020-09-09 12:12:12',
-            name9:'2020-09-09 12:12:12',
+            name9:'承制单位',
             goalPrice:1000,
+            bz:'备注',
+            name8:'装直价[2019]171号',
             examineOrg:'aaa',
             name5:'dsfdsfdsfdsf反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第',
             name6:'反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三方'
           },
           {
             id:"2",
-            name1:'888',
-            name2:'测试',
-             planName:'WEB',
-            name3:'MAIL',
-            technicalStatusIsFixed1:'三生三世'
-          }
+            planName:'WEB',
+            company:"野战电话机141",
+            name1:'13258.00',
+            name2:'aa',
+            name3:'SMS',
+            name4:'APP',
+            offerPriceTime:'2020-02-02 12:12:12',
+            planYear:'2020-01-01 12:12:12',
+            examinePriceTime:'2020-09-09 12:12:12',
+            name9:'承制单位',
+            goalPrice:1000,
+            bz:'备注',
+            name8:'装直价[2019]171号',
+            examineOrg:'aaa',
+            // name5:'dsfdsfdsfdsf反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第',
+            // name6:'反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三方'
+          },
+          {
+            id:"3",
+            planName:'WEB',
+            company:"野战电话机142",
+            name1:'13258.00',
+            name2:'aa',
+            name3:'SMS',
+            name4:'APP',
+            offerPriceTime:'2020-02-02 12:12:12',
+            planYear:'2020-01-01 12:12:12',
+            examinePriceTime:'2020-09-09 12:12:12',
+            name9:'承制单位',
+            goalPrice:1000,
+            bz:'备注',
+            name8:'装直价[2019]171号',
+            examineOrg:'aaa',
+            // name5:'dsfdsfdsfdsf反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第',
+            // name6:'反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三方'
+          },
+          {
+            id:"4",
+            planName:'WEB',
+            company:"野战电话机143",
+            name1:'13258.00',
+            name2:'aa',
+            name3:'SMS',
+            name4:'APP',
+            offerPriceTime:'2020-02-02 12:12:12',
+            planYear:'2020-01-01 12:12:12',
+            examinePriceTime:'2020-09-09 12:12:12',
+            name9:'承制单位',
+            goalPrice:1000,
+            bz:'备注',
+            name8:'装直价[2019]171号',
+            examineOrg:'aaa',
+            // name5:'dsfdsfdsfdsf反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第',
+            // name6:'反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三方'
+          },
+          {
+            id:"5",
+            planName:'WEB',
+            company:"野战电话机144",
+            name1:'13258.00',
+            name2:'aa',
+            name3:'SMS',
+            name4:'APP',
+            offerPriceTime:'2020-02-02 12:12:12',
+            planYear:'2020-01-01 12:12:12',
+            examinePriceTime:'2020-09-09 12:12:12',
+            name9:'承制单位',
+            goalPrice:1000,
+            bz:'备注',
+            name8:'装直价[2019]171号',
+            examineOrg:'aaa',
+            // name5:'dsfdsfdsfdsf反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第',
+            // name6:'反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三方'
+          },
+          {
+            id:"6",
+            planName:'WEB',
+            company:"野战电话机145",
+            name1:'13258.00',
+            name2:'aa',
+            name3:'SMS',
+            name4:'APP',
+            offerPriceTime:'2020-02-02 12:12:12',
+            planYear:'2020-01-01 12:12:12',
+            examinePriceTime:'2020-09-09 12:12:12',
+            name9:'承制单位',
+            goalPrice:1000,
+            bz:'备注',
+            name8:'装直价[2019]171号',
+            examineOrg:'aaa',
+            // name5:'dsfdsfdsfdsf反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第',
+            // name6:'反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三方'
+          },
+          {
+            id:"7",
+            planName:'WEB',
+            company:"野战电话机146",
+            name1:'13258.00',
+            name2:'aa',
+            name3:'SMS',
+            name4:'APP',
+            offerPriceTime:'2020-02-02 12:12:12',
+            planYear:'2020-01-01 12:12:12',
+            examinePriceTime:'2020-09-09 12:12:12',
+            name9:'承制单位',
+            goalPrice:1000,
+            bz:'备注',
+            name8:'装直价[2019]171号',
+            examineOrg:'aaa',
+            // name5:'dsfdsfdsfdsf反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第',
+            // name6:'反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三方'
+          },
+          {
+            id:"8",
+            planName:'WEB',
+            company:"野战电话机147",
+            name1:'13258.00',
+            name2:'aa',
+            name3:'SMS',
+            name4:'APP',
+            offerPriceTime:'2020-02-02 12:12:12',
+            planYear:'2020-01-01 12:12:12',
+            examinePriceTime:'2020-09-09 12:12:12',
+            name9:'承制单位',
+            goalPrice:1000,
+            bz:'备注',
+            name8:'装直价[2019]171号',
+            examineOrg:'aaa',
+            // name5:'dsfdsfdsfdsf反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第',
+            // name6:'反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三方'
+          },
+          {
+            id:"9",
+            planName:'WEB',
+            company:"野战电话机148",
+            name1:'13258.00',
+            name2:'aa',
+            name3:'SMS',
+            name4:'APP',
+            offerPriceTime:'2020-02-02 12:12:12',
+            planYear:'2020-01-01 12:12:12',
+            examinePriceTime:'2020-09-09 12:12:12',
+            name9:'承制单位',
+            goalPrice:1000,
+            bz:'备注',
+            name8:'装直价[2019]171号',
+            examineOrg:'aaa',
+            // name5:'dsfdsfdsfdsf反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第',
+            // name6:'反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三方'
+          },
+          {
+            id:"10",
+            planName:'WEB',
+            company:"野战电话机149",
+            name1:'13258.00',
+            name2:'aa',
+            name3:'SMS',
+            name4:'APP',
+            offerPriceTime:'2020-02-02 12:12:12',
+            planYear:'2020-01-01 12:12:12',
+            examinePriceTime:'2020-09-09 12:12:12',
+            name9:'承制单位',
+            goalPrice:1000,
+            bz:'备注',
+            name8:'装直价[2019]171号',
+            examineOrg:'aaa',
+            // name5:'dsfdsfdsfdsf反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第',
+            // name6:'反倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三倒是第三方第三方'
+          },
         ]
+         this.page = {
+          total: this.data.length,
+          page: 1,
+          size: 10,
+        };
       // this.tableLoading = true;
       // fetchList(this.page).then((response) => {
       //   this.data = response.data.data.list;

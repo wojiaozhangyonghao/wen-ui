@@ -3,7 +3,7 @@ import request from '@/routes/axios'
 // let dicUrl = `/admin/dict/type/{{key}}`
 const DIC = {
   channels: [{
-    label: '短信',
+    label: '订购',
     id: 'SMS'
   },
     {
@@ -11,11 +11,11 @@ const DIC = {
       id: 'MAIL'
     },
     {
-      label: 'PC端',
+      label: '二类通信-有线电机',
       id: 'WEB'
     }, 
     {
-      label: '移动端',
+      label: '单一来源',
       id: 'APP'
     }, 
     {
@@ -30,19 +30,19 @@ export const steps  = {
       {
         "element": "#todayTask_searchBtn",
         "popover": {
-          "title": "查询",
-          "description": "点击按钮可以查询任务信息",
+          "title": "导出",
+          "description": "点击按钮可以导出任务",
           // "position": "top-right"
         }
       },
-      {
-        "element": "#todayTask_addBtn",
-        "popover": {
-          "title": "新增任务",
-          "description": "点击按钮新增任务",
-          // "position": "bottom-center"
-        }
-      },
+      // {
+      //   "element": "#todayTask_addBtn",
+      //   "popover": {
+      //     "title": "新增任务",
+      //     "description": "点击按钮新增任务",
+      //     // "position": "bottom-center"
+      //   }
+      // },
       // {
       //   "element": "#todayTask_aaa",
       //   "popover": {
@@ -61,7 +61,7 @@ export const tableOption = {
   menu:true,// 操作列是否显示
   selection: true,//table 左侧的可选框是否显示
   // dicUrl: dicUrl,//dicUrl : 字典服务器地址
-  menuWidth: 120,// table 右侧操作按钮列的宽度，默认为120,
+  menuWidth: 150,// table 右侧操作按钮列的宽度，默认为120,
   workflow: false,//必填，标记工作流状态
   width:500, //表格宽度     不写宽度表格底部scroll 消失
   // height:800, // 表格高度
@@ -70,7 +70,7 @@ export const tableOption = {
   searchSizeBtn:"default", // 搜索按钮  大小  large default  small
   addBtn: true,  // 新增按钮是否显示
   editBtn: true, // 编辑按钮是否显示
-  viewBtn: false, // 查看按钮是否显示
+  viewBtn: true, // 查看按钮是否显示
   delBtn:true, // 删除按钮 是否显示
   // exportFileBtn:false,// 导出按钮是否显示
   labelCol:{ span: 6 }, // 表单label width
@@ -89,10 +89,35 @@ export const tableOption = {
   menuAlign:"left",//菜单栏对齐方式
   column :[
     {
+      title: 'zb类型',
+      dataIndex: 'planName',
+      key: 'planName',
+      // ellipsis: true,
+      type:'select',
+      span:12,
+      // editDisabled:true,
+      search: true,
+      dicData:DIC.channels,
+      showSearch:true,//多选框是否开启搜索
+      width: 200,
+      // formsolt: true,
+    },
+    {
+      title: "zb名称",
+      key: 'company',
+      dataIndex: "company",
+      width: 200,
+      span:12,
+      search: true,
+      // type:"ueditor",
+      // sortable: true,
+      ellipsis: true, // 超过宽度将自动省略
+    },
+    {
       dataIndex: 'name1',
       key: 'name1',
-      title: '装备价格',
-      search: true,
+      title: '装备计划价/预算',
+      // search: true,
       ellipsis: true,
       width: 200,
       // size:'large',
@@ -142,24 +167,24 @@ export const tableOption = {
     //     },
     //     ]
     // },
+    
     {
-      title: '承制单位',
-      dataIndex: 'planName',
-      key: 'planName',
-      // ellipsis: true,
-      type:'select',
-      span:12,
-      // editDisabled:true,
-      // search: true,
-      dicData:DIC.channels,
-      showSearch:true,//多选框是否开启搜索
-      width: 200,
-      // formsolt: true,
-    },
-    {
-      title: '承研单位',
+      title: '任务类型',
       dataIndex: 'name3',
       key: 'name3',
+      span:12,
+      type:'select',
+      // search: true,
+      multiple:'multiple',
+      dicData:DIC.channels,
+      ellipsis: true,
+      width: 200,
+      // scopedSlots: { customRender: 'name' },
+    },
+    {
+      title: '采购方式',
+      dataIndex: 'name4',
+      key: 'name4',
       span:12,
       type:'select',
       // search: true,
@@ -268,7 +293,7 @@ export const tableOption = {
       ellipsis: true, // 超过宽度将自动省略
     },
     {
-      title: "年度",
+      title: "审价年度",
       key: 'planYear',
       type:'year',
       span:12,
@@ -279,25 +304,26 @@ export const tableOption = {
       width: 200,
       ellipsis: true, // 超过宽度将自动省略
     },
+    // {
+    //   title: "年度",
+    //   key: 'reportPriceTime',
+    //   type:'yearRange',
+    //   hide:true,
+    //   // search: true,
+    //   addVisdiplay:false,
+    //   editVisdiplay:false,
+    //   viewVisdiplay:false,
+    //   dataIndex: "reportPriceTime",
+    //   // valueFormat: "YYYY-MM-DD",
+    //   format: "YYYY",
+    //   width: 200,
+    //   ellipsis: true, // 超过宽度将自动省略
+    // },
     {
-      title: "年度",
-      key: 'reportPriceTime',
-      type:'yearRange',
-      hide:true,
-      // search: true,
-      addVisdiplay:false,
-      editVisdiplay:false,
-      viewVisdiplay:false,
-      dataIndex: "reportPriceTime",
-      // valueFormat: "YYYY-MM-DD",
-      format: "YYYY",
-      width: 200,
-      ellipsis: true, // 超过宽度将自动省略
-    },
-    {
-      title: "年限range",
+      title: "年限",
       key: 'reportPriceTime',
       type:'dateRange',
+      hide:true,
       // search: true,
       span:12,
       dataIndex: "reportPriceTime",
@@ -305,27 +331,6 @@ export const tableOption = {
       // editVisdiplay:false,
       // viewVisdiplay:false,
       width: 200,
-      ellipsis: true, // 超过宽度将自动省略
-    },
-    {
-      title: "zb类型",
-      key: 'examineOrg',
-      dataIndex: "examineOrg",
-      width: 200,
-      // search: true,
-      span:12,
-      // formsolt:true,
-      ellipsis: true, // 超过宽度将自动省略
-    },
-    {
-      title: "zb名称",
-      key: 'company',
-      dataIndex: "company",
-      width: 200,
-      span:12,
-      // search: true,
-      // type:"ueditor",
-      // sortable: true,
       ellipsis: true, // 超过宽度将自动省略
     },
     {
@@ -339,7 +344,7 @@ export const tableOption = {
       ellipsis: true, // 超过宽度将自动省略
     },
     {
-      title: "审价年度",
+      title: "承制单位",
       key: 'name9',
       dataIndex: "name9",
       width: 200,
@@ -349,9 +354,9 @@ export const tableOption = {
       ellipsis: true, // 超过宽度将自动省略
     },
     {
-      title: "系统备注",
-      key: 'name10',
-      dataIndex: "name10",
+      title: "备注",
+      key: 'bz',
+      dataIndex: "bz",
       minRows: 2,
       maxRows: 6,
       span:12,
